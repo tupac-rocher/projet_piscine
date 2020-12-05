@@ -1,0 +1,63 @@
+#title {
+    font-family: Roboto;
+    color: #004877;
+}
+.col p {
+    margin: 0;
+}
+.navigationbar p,a {
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 30px;
+}
+#connectbutton {
+    text-decoration: none;
+}
+
+
+.createButton {
+    background-color: #004877;
+}
+.btn {
+    border-radius: 0.8rem;
+    font-size: 1.3rem;
+    font-family: Roboto;
+}
+.eventButton {
+    padding-right: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.smallButton {
+    padding: 10px;
+    margin: 0;
+}
+#content .row {
+    margin-right:0;
+    margin-left:0;
+}
+#content .col {
+    padding-left: 0;
+    padding-right: 0;
+}
+.grid {
+    padding-left: 0;
+    padding-right: 0;
+}
+.grid .col-8 {
+    padding-left: 0;
+    padding-right: 0;
+}
+.grid .shadow .bg-white {
+    padding: 10px;
+}
+#content {
+    padding: 10px;
+}
+#content .createButton {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+#selector .btn {
+    background-color: red;
+}

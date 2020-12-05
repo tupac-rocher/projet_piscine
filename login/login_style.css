@@ -1,3 +1,20 @@
+#title {
+    font-family: Roboto;
+    color: #004877;
+}
+.col p {
+    margin: 0;
+}
+.navigationbar p,a {
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 30px;
+}
+#connectbutton {
+    text-decoration: none;
+}
+
+
 .login-container{
     margin-top: 50px;
     margin-bottom: 50px;
@@ -30,7 +47,4 @@
     color: #0062cc;
     font-weight: 600;
     text-decoration: none;
-}
-#title {
-    font-family: Roboto;
 }
