@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
     })
     console.log(evenementtest)
     try{
+        // cette fonction appelé sur mon instance du model evenement sauvegarde mon instance dans la base de donnée
         await evenementtest.save()
     } catch(e) {
         console.log(e)
