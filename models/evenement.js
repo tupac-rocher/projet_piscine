@@ -5,7 +5,6 @@ const evenementSchema = new mongoose.Schema({
     dateDebut : { type: Date, required : true},
     duree : { type : Number, required : true},
     dateLimiteMax : { type: Date, required : true},
-    duree : { type: Number, required : true},
     dureeCreneau : { type: Number, required : true},
     nombreMembreJury : { type: Number, required : true},
     anneePromo : { type: Number, required : true},
