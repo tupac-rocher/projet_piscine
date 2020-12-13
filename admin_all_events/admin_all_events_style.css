@@ -52,7 +52,10 @@
     padding: 10px;
 }
 #content {
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 0px;
 }
 #content .createButton {
     padding-top: 15px;
