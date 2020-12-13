@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/tupac-rocher/projet_piscine#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.1",
     "serve-favicon": "^2.5.0"
   },
