@@ -1,0 +1,11 @@
+.col p {
+    margin: 0;
+}
+.navigationbar p,a {
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 30px;
+}
+#connectbutton {
+    text-decoration: none;
+}
