@@ -2,10 +2,10 @@ POST http://localhost:5000/signup
 Content-Type: application/json
 
 {
-    "nomEtudiant" : "Ackerman",
-    "prenomEtudiant" : "Levi",
-    "mailEtudiant" : "levi@test.com",
-    "mdpEtudiant" : "levi",
+    "nomEtudiant" : "Laget",
+    "prenomEtudiant" : "Axel",
+    "mailEtudiant" : "axel@test.com",
+    "mdpEtudiant" : "axel",
     "anneePromo" : "IG3"
 }
 ###
