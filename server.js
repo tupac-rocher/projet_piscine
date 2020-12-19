@@ -22,7 +22,16 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGODB_ATLAS_USER + ':'+ process
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) =>{
-    res.render('index')
+    res.render('login')
 })
+
+app.get('/admin_all_events', (req, res) =>{
+    res.render('admin_all_events')
+})
+
+app.get('/student_event', (req, res) =>{
+    res.render('student_event')
+})
+
 
 app.listen(5000)

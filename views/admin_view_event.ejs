@@ -1,0 +1,32 @@
+<%- include ('./partials/header') %>
+
+<div class="container-fluid content">
+    <div class="row">
+        <div class="col-md-6 col-xl-8 d-none d-md-flex"></div>
+        <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-end">
+            <a class="btn btn-primary smallButton" href="#" role="button"><p><i class="fas fa-edit" title="Editer"></i> Editer</p></a>
+        </div>
+        <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-start">
+            <a class="btn btn-primary smallButton download" href="#" role="button" title="Télécharger format PDF"><p><i class="fas fa-download"></i> Télécharger format PDF</p></a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col d-flex justify-content-center edtCol">
+            <div class="edt shadow rounded">
+                <!-- mettre le planning dans ce div -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center noPadding">
+            <div class="count shadow rounded">
+                <p>Reservations:</p>
+                <p>1 / 12</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('./partials/footer') %>
