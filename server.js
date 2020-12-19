@@ -21,8 +21,23 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGODB_ATLAS_USER + ':'+ process
 // view engine is going to convert our ejs code to html
 app.set('view engine', 'ejs')
 
+//affiche la page d'affichage dde notre serveur 
 app.get('/', (req, res) =>{
-    res.render('index')
+    res.render('login.ejs')
 })
+// routes
 
+//admin_all_events.ejs
+app.route('/admin_all_events')
+    .get(function(req,res){
+        res.render('admin_allevents')
+    })
+
+//admin_view_events
+app.route('/admin_all_events')
+    .get(function(req,res){
+        res.render('admin_view_event')
+    })
+
+    
 app.listen(5000)
