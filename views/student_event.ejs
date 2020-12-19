@@ -1,0 +1,26 @@
+<%- include ("./partials/header") %>
+
+<div class="container-fluid content">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-12 col-md-4 col-xl-3 d-flex justify-content-center">
+            <!-- Bouton Réserver si pas encore de réservation -->
+            <a class="btn btn-primary smallButton" href="#" role="button"><p><i class="fas fa-plus"></i> Réserver</p></a>
+
+            <!-- Bouton Modifier réservation si on a déjà une réservation -->
+            <!-- <a class="btn btn-primary smallButton" href="#" role="button"><p><i class="fas fa-edit"></i> Modifier réservation</p></a> -->
+        </div>
+        <div class="d-none d-xl-flex col-xl-1"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col d-flex justify-content-center edtCol">
+            <div class="edt shadow rounded">
+                <!-- mettre le planning dans ce div -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ("./partials/footer") %>

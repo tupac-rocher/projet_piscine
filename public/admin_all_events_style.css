@@ -2,19 +2,6 @@
     font-family: Roboto;
     color: #004877;
 }
-.col p {
-    margin: 0;
-}
-.navigationbar p,a {
-    font-family: Roboto;
-    font-weight: 400;
-    line-height: 30px;
-}
-#connectbutton {
-    text-decoration: none;
-}
-
-
 .createButton {
     background-color: #004877;
 }
