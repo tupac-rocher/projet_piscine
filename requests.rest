@@ -1,0 +1,18 @@
+POST http://localhost:5000/signup
+Content-Type: application/json
+
+{
+    "nomEtudiant" : "Laget",
+    "prenomEtudiant" : "Axel",
+    "mailEtudiant" : "axel@test.com",
+    "mdpEtudiant" : "axel",
+    "anneePromo" : "IG3"
+}
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "mailEtudiant" : "armin@test.com",
+    "mdpEtudiant" : "armin"
+}
