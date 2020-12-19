@@ -23,15 +23,11 @@ app.set('view engine', 'ejs')
 
 //affiche la page d'affichage dde notre serveur 
 app.get('/', (req, res) =>{
-<<<<<<< HEAD
-    res.render('login.ejs')
-=======
+
     res.render('login')
->>>>>>> 85e3194cd58422067ac651d0cf318b0814aba340
 })
 // routes
 
-<<<<<<< HEAD
 //admin_all_events.ejs
 app.route('/admin_all_events')
     .get(function(req,res){
@@ -45,15 +41,4 @@ app.route('/admin_all_events')
     })
 
     
-=======
-app.get('/admin_all_events', (req, res) =>{
-    res.render('admin_all_events')
-})
-
-app.get('/student_event', (req, res) =>{
-    res.render('student_event')
-})
-
-
->>>>>>> 85e3194cd58422067ac651d0cf318b0814aba340
 app.listen(5000)
