@@ -7,7 +7,7 @@ const evenementSchema = new mongoose.Schema({
     dateLimiteMax : { type: Date, required : true},
     dureeCreneau : { type: Number, required : true},
     nombreMembreJury : { type: Number, required : true},
-    anneePromo : { type: Number, required : true},
+    anneePromo : { type: ObjectId, required : true},
 })
 
 module.exports = mongoose.model('Evenement', evenementSchema)

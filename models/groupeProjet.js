@@ -5,6 +5,7 @@ const groupeProjetSchema = new mongoose.Schema({
     prenomTuteur : { type: String, required : true},
     nomEntreprise : { type : String, required : true},
     idProf : { type: ObjectId, required : true},
+    idCreneau : { type: ObjectId, required : true}
 })
 
 module.exports = mongoose.model('GroupeProjet', groupeprojetSchema)
