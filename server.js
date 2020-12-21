@@ -26,6 +26,8 @@ const authRouter = require('./routes/auth')
 app.use('/', authRouter)
 const evenementRouter = require('./routes/evenements')
 app.use('/evenements', evenementRouter)
+const reservationRouter = require('./routes/reserver')
+app.use('/reserver',reservationRouter)
 
 
 // connecte la base de donnée
