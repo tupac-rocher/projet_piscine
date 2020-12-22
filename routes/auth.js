@@ -27,12 +27,8 @@ router.get('/login', (req, res) =>{
 router.post('/login', async (req,res) =>{
     console.log(req.body)
     //Recherche de l'étudiant dans la base de données
-    const allStudent = await etudiant.find()
-    console.log(allStudent)
-    console.log(req.body.mailEtudiant)
     const tryingToLogEtudiant = await etudiant.findOne({mailEtudiant : req.body.mailEtudiant}).select('mailEtudiant mdpEtudiant')
     //Check si il existe
-    console.log(tryingToLogEtudiant)
     if(tryingToLogEtudiant == null){
         return res.status(400).send('Utilisateur introuvable')
     }
