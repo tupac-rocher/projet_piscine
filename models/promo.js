@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const reservationSchema = new mongoose.Schema({
-    anneePromo : { type : mongoose.ObjectId, required : true},
+const promoSchema = new mongoose.Schema({
+    anneePromo : { type : String, required : true},
 })
 
-module.exports = mongoose.model('Reservation', reservationSchema)
+module.exports = mongoose.model('Promo', promoSchema)
