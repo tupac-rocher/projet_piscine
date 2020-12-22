@@ -47,11 +47,11 @@ app.get('/', (req, res) =>{
 //admin_all_events.ejs
 app.route('/admin_all_events')
     .get(function(req,res){
-        res.render('admin_allevents')
+        res.render('admin_all_events')
     })
 
 //admin_view_events
-app.route('/admin_all_events')
+app.route('/admin_view_event')
     .get(function(req,res){
         res.render('admin_view_event')
     })
