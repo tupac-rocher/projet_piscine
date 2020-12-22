@@ -29,6 +29,7 @@ router.post('/login', async (req,res) =>{
     //Recherche de l'étudiant dans la base de données
     const allStudent = await etudiant.find()
     console.log(allStudent)
+    console.log(req.body.mailEtudiant)
     const tryingToLogEtudiant = await etudiant.findOne({mailEtudiant : req.body.mailEtudiant}).select('mailEtudiant mdpEtudiant')
     //Check si il existe
     console.log(tryingToLogEtudiant)
