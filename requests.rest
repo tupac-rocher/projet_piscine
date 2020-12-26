@@ -16,3 +16,8 @@ Content-Type: application/json
     "mailEtudiant" : "armin@test.com",
     "mdpEtudiant" : "armin"
 }
+
+###
+GET http://localhost:5000/evenements/admin_all_events
+###
+GET http://localhost:5000/evenements/admin_view_event/5fde26d71239673a9cfab8cd
