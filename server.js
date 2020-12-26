@@ -56,5 +56,9 @@ app.route('/admin_view_event')
         res.render('admin_view_event')
     })
 
+app.route('/planningTest')
+    .get(function(req, res){
+        res.render('planningTest')
+    })
     
 app.listen(5000)
