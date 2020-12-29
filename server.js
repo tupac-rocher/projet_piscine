@@ -24,9 +24,9 @@ app.use(express.urlencoded({ extended : false }))
 //les routeurs
 const authRouter = require('./routes/auth')
 app.use('/', authRouter)
-const evenementRouter = require('./routes/evenements')
-app.use('/evenements', evenementRouter)
-const reservationRouter = require('./routes/reserver')
+const eventRouter = require('./routes/eventsRoute')
+app.use('/evenements', eventRouter)
+const reservationRouter = require('./routes/reservationsRoute')
 app.use('/reserver',reservationRouter)
 
 

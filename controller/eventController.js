@@ -1,5 +1,6 @@
-const event = require('../models/evenement')
+const event = require('../models/eventModel')
 
+const a
 async function addEvent(Event){
     await Event.save(function(err){
         if (err){
