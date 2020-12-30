@@ -2,17 +2,44 @@ POST http://localhost:5000/signup
 Content-Type: application/json
 
 {
-    "nomEtudiant" : "Hanji",
-    "prenomEtudiant" : "Zoe",
-    "mailEtudiant" : "zoe@test.com",
-    "mdpEtudiant" : "zoe",
-    "anneePromo" : "IG3"
+    "studentLastName" : "Hanji",
+    "studentFirstName" : "Zoe",
+    "studentMail" : "zoe@test.com",
+    "studentPassword" : "zoe",
+    "schoolYear" : "IG3"
 }
 ###
 POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "mailEtudiant" : "zoe@test.com",
-    "mdpEtudiant" : "zoe"
+    "studentMail" : "zoe@test.com",
+    "studentPassword" : "zoe"
 }
+
+###
+
+GET http://localhost:5000/evenements/ajouter-evenement
+
+###
+
+POST http://localhost:5000/evenements/ajouter-evenement
+Content-Type: application/json
+
+{
+    "eventName" : "Soutenance 3",
+    "startingDate" : "2012-04-23T18:25:43.511Z",
+    "duration" : "2",
+    "maximumLimitDate" : "2012-04-23T18:25:43.511Z",
+    "timeSlotDuration" : "1",
+    "numberOfTeachers" : "5",
+    "schoolYear" : "IG4"
+}
+
+###
+
+DELETE  http://localhost:5000/evenements/5feb87d2a4811a6c936f51fa
+
+###
+
+GET http://localhost:5000/evenements/5feb877ba4811a6c936f51f8

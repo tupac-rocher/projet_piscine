@@ -14996,4 +14996,4 @@ document.addEventListener('DOMContentLoaded', function() {
 /******/ 	// This entry module used 'exports' so it can't be inlined
 /******/ })()
 ;
-//# sourceMappingURL=mainFullCalendar.js.map
+//# sourceMappingURL=fullCalendar.js.map

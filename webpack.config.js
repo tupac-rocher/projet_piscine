@@ -4,7 +4,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
-  entry: './views/fullCalendar.js',
+  entry: {
+    fullCalendar : './views/fullCalendar.js',
+    create_event: './views/create_event'
+  },
   resolve: {
     extensions: [ '.js' ]
   },
@@ -21,12 +24,12 @@ module.exports = {
   },
   watch:true,
   output: {
-    filename: 'mainFullCalendar.js',
+    filename: '[name].js',
     path: path.join(__dirname, 'public','dist')
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'mainFullCalendar.css'
+      filename: '[name].css'
     })
   ]
 }
