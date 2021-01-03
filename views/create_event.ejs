@@ -10,12 +10,12 @@
 </head>
 <body>
 
-    <form>
+    <form action="/evenement/ajouter-evnement" method="POST">
     <div class="form-row">
         <div class="col-4">
             <div class="form-group">
                 <label for="eventName"><h2>Titre</h2></label>
-                <input type="text" class="form-control" id="eventName" placeholder="Donnez un titre.." required>
+                <input type="text" class="form-control" id="eventName" placeholder="Donnez un titre.." name="eventName" required>
             </div>
             <h2>Promo</h2>
             <div class="form-check">

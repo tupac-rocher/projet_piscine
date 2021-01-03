@@ -7,6 +7,7 @@ const timeSlotSchema = new mongoose.Schema({
     eventId : { type: mongoose.ObjectId, required : true},
     groupId : { type: mongoose.ObjectId, required: true},
     teachersId : [{type :mongoose.ObjectId}]
+
 })
 
 module.exports = mongoose.model('TimeSlot', timeSlotSchema)

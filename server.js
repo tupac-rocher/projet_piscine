@@ -26,7 +26,7 @@ const authRouter = require('./routes/auth')
 app.use('/', authRouter)
 const eventRouter = require('./routes/eventsRoute')
 app.use('/evenements', eventRouter)
-const reservationRouter = require('./routes/reservationsRoute')
+const reservationRouter = require('./routes/timeSlotsRoute')
 app.use('/reserver',reservationRouter)
 
 

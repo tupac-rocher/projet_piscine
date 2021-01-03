@@ -43,3 +43,15 @@ DELETE  http://localhost:5000/evenements/5feb87d2a4811a6c936f51fa
 ###
 
 GET http://localhost:5000/evenements/5feb877ba4811a6c936f51f8
+
+###
+
+POST http://localhost:5000/reserver/5ff111c0dd72004ada5f6a5c
+Content-Type: application/json
+
+{
+    "arrayOfIdStudents":["5ff10425a17ac23bd991ca6b", "5feb798bf758c05b2ed67a32"],
+    "date": "2012-04-23T18:25:43.511Z",
+    "startingTime": "2012-04-23T18:25:43.511Z",
+    "classroom": "102"
+}

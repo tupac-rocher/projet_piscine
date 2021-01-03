@@ -14,9 +14,10 @@
             </div>
             <div class="row d-flex flex-column">
                 <div class="col my-2">
+                    <% allEvents.forEach(function(event){ %>
                     <div class="row">
                         <div class="col-8">
-                            <a class="btn btn-primary eventButton" href="#" role="button" title="Voir EDT IG3">IG3</a>
+                            <a class="btn btn-primary eventButton" href="#" role="button" title="Voir EDT IG3"><%- event.eventName %></a>
                         </div>
                         <div class="col">
                             <a class="btn btn-primary smallButton" href="#" role="button"><i class="fas fa-edit" title="Editer"></i></a>
@@ -25,6 +26,7 @@
                             <a class="btn btn-primary smallButton" href="#" role="button" title="Télécharger format PDF"><i class="fas fa-download"></i></a>
                         </div>
                     </div>
+                    <%});%>
                 </div>
                 <div class="col my-2">
                     <div class="row">

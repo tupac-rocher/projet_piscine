@@ -8,7 +8,7 @@ const eventSchema = new mongoose.Schema({
     timeSlotDuration : { type: Number, required : true},
     numberOfTeachers : { type: Number, required : true},
     schoolYearId : { type: mongoose.ObjectId, required : true},
-    timeSlots : [{type: mongoose.ObjectId}]
+    timeSlots : [{type: mongoose.ObjectId, ref: "timeSlots"}]
 })
 
 module.exports = mongoose.model('Event', eventSchema)
