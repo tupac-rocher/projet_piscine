@@ -6,6 +6,7 @@ const groupeProjetSchema = new mongoose.Schema({
     nomEntreprise : { type : String, required : true},
     idProf : { type: mongoose.ObjectId, required : true},
     idCreneau : { type: mongoose.ObjectId, required : true}
+    
 })
 
 module.exports = mongoose.model('GroupeProjet', groupeprojetSchema)

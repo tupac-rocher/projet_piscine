@@ -1,8 +1,17 @@
 const express = require('express')
+
 const etudiant = require('../models/etudiant')
-const prof = require('./../models/prof')
+const etudiantController = require('../controller/etudiantController')
+
+const prof = require('../models/teacher')
+const teacherController = require('./../controller/teacherController')
+
 const reserver = require('./../models/reservation')
-const crenau = require('./../models/creneau')
+const reserverController = require('../controller/reservationController')
+
+const creneau = require('./../models/creneau')
+const creneauController = require('../controller/crenauController')
+
 const { all } = require('./evenements')
 const router = express.Router()
 //--------------
@@ -10,12 +19,13 @@ const mongoose = require('mongoose')
 
 
 router.get('/', async function(req, res){
-    const allStudents = await etudiant.find()
-    const allProfs = await prof.find()
-    const allCrenaux = await crenau.find()
-    const allReservations = await reserver.find()
+    const allStudents = etudiantController.allStudents()
+    const allTeachers = teacherController.allTeachers()
+    const allCreneaux = creneauController.allCrenaux()
+    const allReservations = reserverController.allReservation()
+
     console.log(allStudents)
-    console.log(allProfs)
+    console.log(allTeachers)
     console.log(allCrenaux)
     console.log(allReservations)
 
@@ -36,7 +46,16 @@ router.route('/etu_creat_reservation')
     .get(function(req,res){
         res.render('etu_creat_reservation')//{allStudents,allProfs,allCrenauxDispo}
     })
-    .post
+    .post(function(req, res) {
+        /*
+        1) créer un groupe 
+        2) associe le groupe avec etudiants dans composer
+        3) associe le groupe avec le crenau dans reserver
+        4) associe le prof avec le crenau dans participer ????
+        */
+        res.send('');
+
+      })
 
 /*
 
