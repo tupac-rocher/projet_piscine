@@ -1,5 +1,6 @@
 const express = require('express')
 const etudiant = require('../models/etudiant')
+const promo = require('./../models/promo')
 const router = express.Router()
 
 //Pour saler et hacher le mot de passe
@@ -24,6 +25,7 @@ router.get('/login', (req, res) =>{
     res.render('login.ejs')
 })
 router.post('/login', async (req,res) =>{
+    console.log(req.body)
     //Recherche de l'étudiant dans la base de données
     const tryingToLogEtudiant = await etudiant.findOne({mailEtudiant : req.body.mailEtudiant}).select('mailEtudiant mdpEtudiant')
     //Check si il existe
@@ -35,6 +37,7 @@ router.post('/login', async (req,res) =>{
         if(await(bcrypt.compare(req.body.mdpEtudiant, tryingToLogEtudiant.mdpEtudiant))){
             res.send('Succes')
             const etudiantPayload = await etudiant.findOne({mailEtudiant : req.body.mailEtudiant}).select('nomEtudiant prenomEtudiant anneePromo')
+            console.log(etudiantPayload)
             jwt.sign(etudiantPayload.toJSON, process.env.ACCESS_TOKEN_SECRET)
         } else {
             res.send('Not Allowed')
@@ -56,6 +59,8 @@ router.post('/signUp', async (req,res) =>{
         const salt = await bcrypt.genSalt()
         console.log(salt)
         const hashedPassword = await bcrypt.hash(req.body.mdpEtudiant, salt)
+        console.log(req.body.anneePromo)
+        const promoObject = await promo.findOne({anneePromo :req.body.anneePromo})
         // A partir du modèle étudiant, on instancie un étudiant d'après les informations du formulaire
         console.log(hashedPassword)
         const newUser = new etudiant({
@@ -63,7 +68,7 @@ router.post('/signUp', async (req,res) =>{
             prenomEtudiant: req.body.prenomEtudiant,
             mailEtudiant: req.body.mailEtudiant,
             mdpEtudiant: hashedPassword,
-            anneePromo: req.body.anneePromo
+            anneePromo: promoObject._id
         })
         try{
             // cette fonction appelé sur mon instance du model etudiant sauvegarde mon instance dans la base de donnée

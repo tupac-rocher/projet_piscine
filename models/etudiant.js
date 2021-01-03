@@ -6,7 +6,7 @@ const etudiantSchema = new mongoose.Schema({
     //Ici le mailEtudiant est unique dans la base de données
     mailEtudiant : { type : String, required : true, unique: true},
     mdpEtudiant : { type: String, required : true},
-    anneePromo : { type: String, required : true},
+    anneePromo : { type: mongoose.ObjectId, required : true},
 })
 
 module.exports = mongoose.model('Etudiant', etudiantSchema)

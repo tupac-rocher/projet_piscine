@@ -2,10 +2,10 @@ POST http://localhost:5000/signup
 Content-Type: application/json
 
 {
-    "nomEtudiant" : "Laget",
-    "prenomEtudiant" : "Axel",
-    "mailEtudiant" : "axel@test.com",
-    "mdpEtudiant" : "axel",
+    "nomEtudiant" : "Hanji",
+    "prenomEtudiant" : "Zoe",
+    "mailEtudiant" : "zoe@test.com",
+    "mdpEtudiant" : "zoe",
     "anneePromo" : "IG3"
 }
 ###
@@ -13,11 +13,6 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "mailEtudiant" : "armin@test.com",
-    "mdpEtudiant" : "armin"
+    "mailEtudiant" : "zoe@test.com",
+    "mdpEtudiant" : "zoe"
 }
-
-###
-GET http://localhost:5000/evenements/admin_all_events
-###
-GET http://localhost:5000/evenements/admin_view_event/5fde26d71239673a9cfab8cd

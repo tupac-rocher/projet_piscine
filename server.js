@@ -12,6 +12,10 @@ require('dotenv').config()
 //les routeurs
 const evenementRouter = require('./routes/evenements')
 app.use('/evenements', evenementRouter)
+const reservationRouter = require('./routes/reserver')
+app.use('/reserver',reservationRouter)
+
+
 // connecte la base de donnée
 mongoose.connect('mongodb+srv://'+ process.env.MONGODB_ATLAS_USER + ':'+ process.env.MONGODB_ATLAS_PW + '@'+ process.env.MONGODB_ATLAS_NAME + '.ybw8y.mongodb.net/projetpiscine?retryWrites=true&w=majority',{ 
     useNewUrlParser: true , useUnifiedTopology: true })
@@ -23,9 +27,8 @@ app.set('view engine', 'ejs')
 
 //affiche la page d'affichage dde notre serveur 
 app.get('/', (req, res) =>{
-    res.render('admin_all_events')
+    res.render('etu_creat_reservation')
 })
-
 
     
 app.listen(5000)
