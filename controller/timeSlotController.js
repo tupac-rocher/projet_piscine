@@ -2,7 +2,6 @@ const timeSlot = require('../models/timeSlotModel')
 const group = require('../models/groupModel')
 const event = require('../models/eventModel')
 const createTimeSlot_get = (req, res) => {
-
     res.render('etu_creat_reservation')
 }
 

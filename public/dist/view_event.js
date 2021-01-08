@@ -14838,10 +14838,10 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 
 /***/ }),
 
-/***/ "./views/fullCalendar.js":
-/*!*******************************!*\
-  !*** ./views/fullCalendar.js ***!
-  \*******************************/
+/***/ "./views/view_event.js":
+/*!*****************************!*\
+  !*** ./views/view_event.js ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -14992,8 +14992,8 @@ document.addEventListener('DOMContentLoaded', function() {
 /************************************************************************/
 /******/ 	// startup
 /******/ 	// Load entry module
-/******/ 	__webpack_require__("./views/fullCalendar.js");
+/******/ 	__webpack_require__("./views/view_event.js");
 /******/ 	// This entry module used 'exports' so it can't be inlined
 /******/ })()
 ;
-//# sourceMappingURL=fullCalendar.js.map
+//# sourceMappingURL=view_event.js.map

@@ -8,10 +8,10 @@ router.route('/')
 router.route('/ajouter-evenement')
     .get(eventController.addEvent_admin_get)
     .post(eventController.addEvent_admin_post)
-/*
+
 router.route('/:eventId')
     .get(eventController.eventById)
     .delete(eventController.deleteEvent_admin_delete)
-   */ 
+    
 
 module.exports = router

@@ -35,10 +35,10 @@ router.post('/login', async (req,res) =>{
     try{
         // hash le mdp rentré, désale le mdp de la base de donnée, et il les compare
         if(await(bcrypt.compare(req.body.studentPassword, tryingToLogstudent.studentPassword))){
-            res.send('Succes')
             const studentPayload = await student.findOne({studentMail : req.body.studentMail}).select('studentLastName studentFirstName schoolYearId')
             console.log(studentPayload)
-            jwt.sign(studentPayload.toJSON, process.env.ACCESS_TOKEN_SECRET)
+            jwt.sign(studentPayload.toJSON(), process.env.ACCESS_TOKEN_SECRET)
+            res.redirect('/evenements')
         } else {
             res.send('Not Allowed')
         }

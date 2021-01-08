@@ -5,7 +5,7 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: {
-    fullCalendar : './views/fullCalendar.js',
+    view_event : './views/view_event.js',
     create_event: './views/create_event'
   },
   resolve: {

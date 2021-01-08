@@ -68,11 +68,12 @@ const deleteEvent_admin_delete = (req, res) => {
 }
 
 const eventById = (req, res) => {
-    console.log(req.params)
+    console.log('Before request',req.params)
     event.findById(req.params.eventId)
         .then(result => {
-            res.json(result)
-            //res.render('admin_view_event', {event : result})
+            console.log('After request', req.params)
+            //res.json(result)
+            res.render('admin_view_event', {event : result})
         })
         .catch(err => {
             console.log(err);
