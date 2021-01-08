@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="/nav.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.js"></script>-->
     <script src="https://kit.fontawesome.com/448229a374.js" crossorigin="anonymous"></script>
-
+    <link href='/dist/view_event.css' rel='stylesheet'/>
+	<script src='/dist/view_event.js'></script>
     
 
 <title>Vue Evénements</title>
@@ -52,16 +56,10 @@
         </div>
     </div>
 </div>
+<div id='calendar'></div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col d-flex justify-content-center edtCol">
-            <div class="edt shadow rounded">
-                <div id='calendar'></div>
-                <%- event._id %>
-            </div>
-        </div>
-    </div>
-    <div class="row">
+        <%- event._id %>
         <div class="col d-flex justify-content-center noPadding">
             <div class="count shadow rounded">
                 <p>Reservations:</p>
@@ -71,7 +69,22 @@
     </div>
 </div>
 <!--<script src='./dist/view_event.js'></script>-->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<!--<script>
+    $(document).ready(function() {
+    $('#calendar').fullCalendar({
+    //plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
+    locale:'fr',
+    initialView: 'dayGridWeek',
+    header: {
+        left: 'prev,next,today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+        }
+    });
+
+    });
+</script>-->
 </body>
 </html>
