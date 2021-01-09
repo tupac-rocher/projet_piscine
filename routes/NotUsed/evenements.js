@@ -3,7 +3,7 @@ const evenement = require('../models/evenement')
 const evenementController = require('../controller/evenementController')
 const router = express.Router()
 
-var MongoObjectID = require("mongodb").ObjectID;          // Necessaire pour gérer les ID mongoDB
+//var MongoObjectID = require("mongodb").ObjectID;          // Necessaire pour gérer les ID mongoDB
 
 
 //Juste pour tester que les évenements se crée dans le base de donnée quand je get localhost:5000/evenement/ -> résultat ok
