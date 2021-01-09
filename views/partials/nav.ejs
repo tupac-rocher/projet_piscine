@@ -3,9 +3,15 @@
     <div class="container-fluid shadow bg-white rounded navigationbar">
         <div class="row">
             <div class="col d-flex align-items-center">
-                <a class="navbar-brand" href="#">
+                <% if(locals.user) {%>
+                <a class="navbar-brand" href="/evenements">
                         <img src="/logo.png" height="50" alt="" loading="lazy">
                 </a>
+                <%} else {%>
+                    <a class="navbar-brand" href="/login">
+                        <img src="/logo.png" height="50" alt="" loading="lazy">
+                </a>
+                <% } %>
             </div>
             <div class="col">
                 <div class="row">

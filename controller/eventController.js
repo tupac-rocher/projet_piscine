@@ -73,7 +73,7 @@ const eventById = (req, res) => {
         .then(result => {
             console.log('After request', req.params)
             //res.json(result)
-            res.render('view_event', {event : result, user: req.user})
+            res.render('view_event', {event : result, user: req.user, eventId : req.params.eventId})
         })
         .catch(err => {
             console.log(err);
