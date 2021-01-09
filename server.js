@@ -28,9 +28,11 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGODB_ATLAS_USER + ':'+ process
 app.set('view engine', 'ejs')
 
 //affiche la page d'affichage dde notre serveur 
-app.get('/', (req, res) =>{
-    res.render('etu_creat_reservation')
-})
+const evenementController = require('./controller/eventController')
+app.route('/')
+    .get( evenementController.allEvents )
+
+
 
 app.route('/planningTest')
     .get(function(req, res){

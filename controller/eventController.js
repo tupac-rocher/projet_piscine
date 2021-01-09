@@ -83,6 +83,7 @@ const eventById = (req, res) => {
 const allEvents = (req, res) => {
     event.find()
         .then(result => {
+            console.log(result)
             res.render('admin_all_events', {allEvents : result})
         })
         .catch(err => {

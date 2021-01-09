@@ -10,50 +10,42 @@
         <div class="col d-none d-sm-block"></div>
         <div class="col-12 col-sm-8 col-lg-6 col-xl-4 grid shadow bg-white rounded" id="content">
             <div class="row my-4">
-                <button type="button" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Créer événement</button>
+                <a class="btn btn-primary"href="/evenements/ajouter-evenement" role="button"><i class="fas fa-plus"></i> Créer évenement</a>
             </div>
             <div class="row d-flex flex-column">
                 <div class="col my-2">
-                    <% allEvents.forEach(function(event){ %>
-                    <div class="row">
-                        <div class="col-8">
-                            <a class="btn btn-primary eventButton" href="#" role="button" title="Voir EDT IG3"><%- event.eventName %></a>
+
+                  <li class="list-group-item">
+                    <% for(var event of allEvents) {  %>
+                        
+                        <div class="row">
+                            
+                                <a href="/evenements/<%- event._id %>" class="list-group-item list-group-item-action">
+                                    <div class="row">
+                                    <div class ="col-8"><%= event.eventName %></div>
+                                    <div class="col-4">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+    
+                                        <button type="button" class="btn btn-primary" title="Télécharger format PDF"><i class="fas fa-download"></i></button>
+                                        <button type="button" class="btn btn-primary"><i class="fas fa-edit" title="Editer"></i></button>
+                                     </div> 
+                                     </div>
+                                    </div>
+                                </a>
+                            
                         </div>
-                        <div class="col">
-                            <a class="btn btn-primary smallButton" href="#" role="button"><i class="fas fa-edit" title="Editer"></i></a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary smallButton" href="#" role="button" title="Télécharger format PDF"><i class="fas fa-download"></i></a>
-                        </div>
-                    </div>
-                    <%});%>
+                  
+                    <%};%>   
+                </li>
+
+                        
+                            
+                          
+                          </ul>
+
+
                 </div>
-                <div class="col my-2">
-                    <div class="row">
-                        <div class="col-8">
-                            <a class="btn btn-primary eventButton" href="#" role="button" title="Voir EDT IG4">IG4</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary smallButton" href="#" role="button"><i class="fas fa-edit" title="Editer"></i></a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary smallButton" href="#" role="button" title="Télécharger format PDF"><i class="fas fa-download"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col my-2">
-                    <div class="row">
-                        <div class="col-8">
-                            <a class="btn btn-primary eventButton" href="#" role="button" title="Voir EDT IG5">IG5</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary smallButton" href="#" role="button" title="Editer"><i class="fas fa-edit"></i></a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary smallButton" href="#" role="button" title="Télécharger format PDF"><i class="fas fa-download"></i></a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <div class="col d-none d-sm-block"></div>
