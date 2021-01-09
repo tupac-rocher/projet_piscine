@@ -57,4 +57,14 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/evenements/ajouter-evenement
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "studentMail" : "armin@test.com",
+    "studentPassword" : "armin"
+}
+
+###
+GET http://localhost:5000/evenements
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmViNzk4YmY3NThjMDViMmVkNjdhMzIiLCJzdHVkZW50TGFzdE5hbWUiOiJBcmxlcnQiLCJzdHVkZW50Rmlyc3ROYW1lIjoiQXJtaW4iLCJzY2hvb2xZZWFySWQiOiI1ZmViNzdmOGIyYzI5NmQzMzhjOGZkZmIiLCJpYXQiOjE2MTAxOTczNDF9.JrYbWLmrsukA_AAFBd1f-WFoekHbbtcqg6xnCIEwvac

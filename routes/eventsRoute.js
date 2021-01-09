@@ -1,8 +1,10 @@
 const express = require('express')
 const eventController = require('./../controller/eventController')
+const authMiddleware = require('./../middleware/authMiiddleware')
 const router = express.Router()
 
 router.route('/')
+    .all(authMiddleware.authenticateToken)
     .get(eventController.allEvents)
 
 router.route('/ajouter-evenement')

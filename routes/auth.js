@@ -1,5 +1,6 @@
 const express = require('express')
 const student = require('../models/studentModel')
+const admin = require('../models/adminModel')
 const schoolYear = require('../models/schoolYearModel')
 const router = express.Router()
 
@@ -8,16 +9,35 @@ const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken')
 
-//Middleware authorization with jwt
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.sendStatus(401)
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
-        req.user = user
-        next()
-    })
-}
+router.get('/loginAdmin', (req, res) => {
+    res.render('loginAdmin')
+})
+router.post('/loginAdmin', async (req,res) =>{
+    //Recherche de l'étudiant dans la base de données
+    const tryingToLogAdmin = await admin.findOne({adminPseudo : req.body.adminPseudo}).select('adminPseudo adminPassword')
+    //Check si il existe
+    if(tryingToLogAdmin == null){
+        return res.status(400).send('Administrateur introuvable')
+    }
+    try{
+        // hash le mdp rentré, désale le mdp de la base de donnée, et il les compare
+        if(await(bcrypt.compare(req.body.adminPassword, tryingToLogAdmin.adminPassword))){
+            const token = jwt.sign(tryingToLogAdmin.adminPseudo, process.env.ACCESS_TOKEN_SECRET)
+            res.cookie('jwt', token)
+            res.redirect('/evenements')
+        } else {
+            res.send('Not Allowed')
+        }
+    }catch(e){
+        console.log(e)
+        res.status(500).send()
+    }
+})
+
+router.get('/logout', async (req, res) => {
+    res.cookie('jwt',"", {maxAge: 0})
+    res.redirect('/login')
+})
 
 // SignIn route
 router.get('/login', (req, res) =>{
@@ -25,7 +45,6 @@ router.get('/login', (req, res) =>{
     res.render('login')
 })
 router.post('/login', async (req,res) =>{
-    console.log(req.body)
     //Recherche de l'étudiant dans la base de données
     const tryingToLogstudent = await student.findOne({studentMail : req.body.studentMail}).select('studentMail studentPassword')
     //Check si il existe
@@ -37,7 +56,8 @@ router.post('/login', async (req,res) =>{
         if(await(bcrypt.compare(req.body.studentPassword, tryingToLogstudent.studentPassword))){
             const studentPayload = await student.findOne({studentMail : req.body.studentMail}).select('studentLastName studentFirstName schoolYearId')
             console.log(studentPayload)
-            jwt.sign(studentPayload.toJSON(), process.env.ACCESS_TOKEN_SECRET)
+            const token = jwt.sign(studentPayload.toJSON(), process.env.ACCESS_TOKEN_SECRET)
+            res.cookie('jwt', token)
             res.redirect('/evenements')
         } else {
             res.send('Not Allowed')
@@ -60,6 +80,9 @@ router.post('/signUp', async (req,res) =>{
         console.log(salt)
         const hashedPassword = await bcrypt.hash(req.body.studentPassword, salt)
         const schoolYearObject = await schoolYear.findOne({schoolYear :req.body.schoolYear})
+        if (!schoolYearObject){
+            res.sendStatus('500')
+        }
         // A partir du modèle étudiant, on instancie un étudiant d'après les informations du formulaire
         console.log(hashedPassword)
         const newUser = new student({
@@ -72,6 +95,7 @@ router.post('/signUp', async (req,res) =>{
         try{
             // cette fonction appelé sur mon instance du model student sauvegarde mon instance dans la base de donnée
             await newUser.save()
+            res.redirect('/login')
         } catch(e) {
             console.log(e)
             res.status(500).send()
