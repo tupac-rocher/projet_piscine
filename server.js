@@ -11,6 +11,12 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use( express.static( "public" ) );
 //Permet de pouvoir appeler nos variables d'environnement
 require('dotenv').config()
+//Pour pouvoir test les requêtes avec REST Client sous format JSON
+app.use(express.json());
+
+//Access values from form inside of our request
+//variable inside of our POST method
+app.use(express.urlencoded({ extended : false }))
 //les routeurs
 const authRouter = require('./routes/auth')
 app.use('/', authRouter)
@@ -32,7 +38,9 @@ app.set('view engine', 'ejs')
 //affiche la page d'affichage dde notre serveur 
 const evenementController = require('./controller/eventController')
 app.route('/')
-    .get( evenementController.allEvents )
+    .get( function(req, res){
+        res.render('login')
+    } )
 
 
 

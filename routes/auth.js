@@ -22,7 +22,11 @@ router.post('/loginAdmin', async (req,res) =>{
     try{
         // hash le mdp rentré, désale le mdp de la base de donnée, et il les compare
         if(await(bcrypt.compare(req.body.adminPassword, tryingToLogAdmin.adminPassword))){
-            const token = jwt.sign(tryingToLogAdmin.adminPseudo, process.env.ACCESS_TOKEN_SECRET)
+            console.log(tryingToLogAdmin)
+            tryingToLogAdmin.adminPassword = undefined
+            console.log(tryingToLogAdmin)
+            //delete tryingToLogAdmin.adminPassword
+            const token = jwt.sign(tryingToLogAdmin.toJSON(), process.env.ACCESS_TOKEN_SECRET)
             res.cookie('jwt', token)
             res.redirect('/evenements')
         } else {

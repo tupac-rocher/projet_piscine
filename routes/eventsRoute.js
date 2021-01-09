@@ -12,6 +12,7 @@ router.route('/ajouter-evenement')
     .post(eventController.addEvent_admin_post)
 
 router.route('/:eventId')
+    .all(authMiddleware.authenticateToken)
     .get(eventController.eventById)
     .delete(eventController.deleteEvent_admin_delete)
     
