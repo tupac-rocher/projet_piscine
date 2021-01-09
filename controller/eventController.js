@@ -2,7 +2,7 @@ const event = require('../models/eventModel')
 const schoolYear = require('../models/schoolYearModel')
 
 const addEvent_admin_get = (req, res) => {
-    res.render('admin_create_event', { user: req.user})
+    res.render('create_event', { user: req.user})
 }
 
 const addEvent_admin_post = async (req, res) => {
@@ -59,7 +59,7 @@ const deleteEvent_admin_delete = (req, res) => {
     console.log(req.params.eventId)
     event.findByIdAndDelete(req.params.eventId)
         .then(result => {
-            res.redirect('admin_all_events')
+            res.redirect('all_events')
         })
         .catch(err => {
             console.log(err);
@@ -73,7 +73,7 @@ const eventById = (req, res) => {
         .then(result => {
             console.log('After request', req.params)
             //res.json(result)
-            res.render('admin_view_event', {event : result, user: req.user})
+            res.render('view_event', {event : result, user: req.user})
         })
         .catch(err => {
             console.log(err);
@@ -83,7 +83,7 @@ const eventById = (req, res) => {
 const allEvents = (req, res) => {
     event.find()
         .then(result => {
-            res.render('admin_all_events', {allEvents : result, user: req.user})
+            res.render('all_events', {allEvents : result, user: req.user})
         })
         .catch(err => {
             console.log(err);

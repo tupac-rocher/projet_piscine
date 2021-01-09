@@ -47,7 +47,7 @@ GET http://localhost:5000/evenements/5feb877ba4811a6c936f51f8
 
 ###
 
-POST http://localhost:5000/reserver/5ff111c0dd72004ada5f6a5c
+POST http://localhost:5000/reserver/5ff111fed4459a4b3909e614
 Content-Type: application/json
 
 {
@@ -58,7 +58,6 @@ Content-Type: application/json
 }
 
 ###
-<<<<<<< HEAD
 POST http://localhost:5000/login
 Content-Type: application/json
 
