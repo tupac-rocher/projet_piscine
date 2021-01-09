@@ -2,7 +2,7 @@ const event = require('../models/eventModel')
 const schoolYear = require('../models/schoolYearModel')
 
 const addEvent_admin_get = (req, res) => {
-    res.render('admin_create_event')
+    res.render('admin_create_event', { user: req.user})
 }
 
 const addEvent_admin_post = async (req, res) => {
