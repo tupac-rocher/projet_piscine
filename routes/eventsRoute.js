@@ -8,6 +8,7 @@ router.route('/')
     .get(eventController.allEvents)
 
 router.route('/ajouter-evenement')
+    .all(authMiddleware.authenticateToken)
     .get(eventController.addEvent_admin_get)
     .post(eventController.addEvent_admin_post)
 
