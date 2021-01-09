@@ -12,29 +12,28 @@
                     <div class="d-xl-block col-xl-1"></div>
                     <div class="d-md-block col-md-4 col-lg-6 col-xl-6"></div>
                     <% if (locals.user) {%>
-                        <% if (user.pseudo != undefined) {%>
+                        <% if (typeof user.adminPseudo != "undefined") {%>
                         <div class="col my-3 d-flex justify-content-end flex-nowrap">
                             <p>Administrateur</p>
                         </div>
-                        <%}%>
-                        <% if (user.studentLastName != undefined) { %>
+                        <% } else{ %>
                         <!-- afficher le nom de l'utilisateur ou "Admin" lorsqu'on est connecté -->
                         <div class="col my-3 d-flex justify-content-end flex-nowrap">
                             <p><%- user.studentLastName %> <%- user.studentFirstName %></p>
                         </div>
+                        <%}%>
                         <!-- afficher lorsqu'on est connecté -->
                         <div class="col my-3">
                             <a id="connectbuttonhref" href="/logout">Déconnexion</a>
                         </div>
-                        <%}%>
-                    <%  }else { %>
+                    <% } else{ %>
                     <div class="col my-3">
                         <a id="connectbuttonhref" href="/login">Se connecter</a>
                     </div>
                     <div class="col my-3">
                         <a id="connectbuttonhref" href="/loginAdmin">Se connecter en tant qu'administrateur</a>
                     </div>
-                    <% }%>
+                    <%}%>
                 </div>
             </div>
         </div>
