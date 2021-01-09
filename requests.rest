@@ -51,7 +51,7 @@ POST http://localhost:5000/reserver/5ff111fed4459a4b3909e614
 Content-Type: application/json
 
 {
-    "arrayOfIdStudents":["5ff10425a17ac23bd991ca6b", "5feb798bf758c05b2ed67a32"],
+    "arrayOfIdStudents":["5feb798bf758c05b2ed67a32", "5ff10425a17ac23bd991ca6b"],
     "date": "2012-04-23T18:25:43.511Z",
     "startingTime": "2012-04-23T18:25:43.511Z",
     "classroom": "102"

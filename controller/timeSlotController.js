@@ -1,6 +1,7 @@
 const timeSlot = require('../models/timeSlotModel')
 const group = require('../models/groupModel')
 const event = require('../models/eventModel')
+const student = require('../models/studentModel')
 const createTimeSlot_get = (req, res) => {
     res.render('create_reservation')
 }
@@ -27,7 +28,10 @@ const createTimeSlot_post = (req, res) => {
             event.findByIdAndUpdate(req.params.eventId,{ $push: { timeSlots: { _id : savedTimeSlot._id } }})
             .then(result =>{
                 group.findByIdAndUpdate(savedTimeSlot.groupId, { timeSlotId : savedTimeSlot._id })
-                .then(result => {
+                .then(async (result)  => {
+                    for (const studentId in req.body.arrayOfIdStudents) {
+                        await student.findByIdAndUpdate(req.body.arrayOfIdStudents[studentId], {groupId : savedTimeSlot.groupId })
+                    }
                     res.redirect('/evenements/'+ req.params.eventId)
                 })
                 .catch(err => {
