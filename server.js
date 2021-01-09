@@ -22,7 +22,7 @@ app.use('/reserver',reservationRouter)
 
 // connecte la base de donnée
 mongoose.connect('mongodb+srv://'+ process.env.MONGODB_ATLAS_USER + ':'+ process.env.MONGODB_ATLAS_PW + '@'+ process.env.MONGODB_ATLAS_NAME + '.ybw8y.mongodb.net/projetpiscine?retryWrites=true&w=majority',{ 
-    useNewUrlParser: true , useUnifiedTopology: true })
+    useNewUrlParser: true , useUnifiedTopology: true, useCreateIndex: true })
 // mongoose.connect('mongodb://127.0.0.1/projetpiscineg4',{ 
 //     useNewUrlParser: true , useUnifiedTopology: true })
 

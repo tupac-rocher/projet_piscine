@@ -33,7 +33,7 @@ function studentById(id){
     })
 }
 
-function allStudentsWithoutGroup(){
+/*function allStudentsWithoutGroup(){
     const all
     return student.
-}
+}*/
