@@ -1,4 +1,4 @@
-const teacher = require('../models/teacherModel')
+const teacher = require('../../models/teacherModel')
 
 async function addteacher(teacher){
     await teacher.save(function(err){

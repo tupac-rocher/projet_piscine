@@ -6,7 +6,7 @@ const timeSlotSchema = new mongoose.Schema({
     classroom : { type : Number, required : true},
     eventId : { type: mongoose.ObjectId, required : true},
     groupId : { type: mongoose.ObjectId, required: true},
-    teachersId : [{type :mongoose.ObjectId}]
+    teachersId : [{type :mongoose.ObjectId, ref:"teachers"}]
 
 })
 
