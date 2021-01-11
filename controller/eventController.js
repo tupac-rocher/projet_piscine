@@ -1,3 +1,4 @@
+const { isValidObjectId } = require('mongoose')
 const event = require('../models/eventModel')
 const schoolYear = require('../models/schoolYearModel')
 
@@ -138,7 +139,15 @@ const eventByIdEdit = (req, res) => {
         .then(result => {
             console.log('After request', req.params)
             //res.json(result)
-            res.render('admin_edit_event', {event : result})
+            // conversion des dates 
+            maximumLimitDate=""+result.maximumLimitDate.getFullYear()+"-"+ (result.maximumLimitDate.getMonth()+1 < 10 ?"0"+(result.maximumLimitDate.getMonth()+1):(result.maximumLimitDate.getMonth()+1))+"-"+(result.maximumLimitDate.getDate()< 10 ?"0"+result.maximumLimitDate.getDate():result.maximumLimitDate.getDate())
+            startingDate=""+result.startingDate.getFullYear()+"-"+ (result.startingDate.getMonth()+1 < 10 ?"0"+(result.startingDate.getMonth()+1):(result.startingDate.getMonth()+1))+"-"+(result.startingDate.getDate()< 10 ?"0"+result.startingDate.getDate():result.startingDate.getDate())
+            // Construction des Promos 
+            IG3 = result.schoolYearId == "5feb77f8b2c296d338c8fdfb" ? IG3 = "checked" : IG3 = ""
+            IG4 = result.schoolYearId == "5feb7806b2c296d338c8fdfc" ? IG4 = "checked" : IG4 = ""
+            IG5 = result.schoolYearId == "5feb781eb2c296d338c8fdfd" ? IG5 = "checked" : IG5 = ""
+
+            res.render('admin_edit_event', {event : result, maximumLimitDate : maximumLimitDate ,startingDate : startingDate ,IG3 : IG3 ,IG4 : IG4 ,IG5 : IG5})
         })
         .catch(err => {
             console.log(err);

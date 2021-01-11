@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col-md-6 col-xl-8 d-none d-md-flex"></div>
         <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-end">
-            <a class="btn btn-primary smallButton" href="#" role="button"><p><i class="fas fa-edit" title="Editer"></i> Editer</p></a>
+            <a class="btn btn-primary smallButton" href="/evenements/editer-evenement/<%- event._id %>" role="button"><p><i class="fas fa-edit" title="Editer"></i> Editer</p></a>
         </div>
         <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-start">
             <a class="btn btn-primary smallButton download" href="#" role="button" title="Télécharger format PDF" onclick="ExportPdf()"><p><i class="fas fa-download"></i> Télécharger format PDF</p></a>
@@ -92,7 +92,7 @@ kendo.drawing
 
    })
        .then(function(group){
-       kendo.drawing.pdf.saveAs(group, "Exported2pdf")
+       kendo.drawing.pdf.saveAs(group, "planning.pdf")
    });
    
    kendo.pdf.defineFont({
@@ -106,17 +106,7 @@ kendo.drawing
 
 }
 </script>
-<script type="x/kendo-template" id="page-template">
-    <div class="page-template">
-           <div class="header">
-             // Company logo could be here 
-           </div>
-           <div class="footer" style="text-align: center">
-              
-               <h2> #:pageNum# </h2> //footer has the page count
-           </div>
-     </div>
-</script>
+
 
 <script> 
     var event = <%- JSON.stringify(event) %>; 
