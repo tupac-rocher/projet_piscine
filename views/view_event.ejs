@@ -80,12 +80,13 @@ kendo.drawing
    .drawDOM("#calendar", 
    { 
        paperSize: "A4",
-       margin: { top: "2", bottom: "2cm" },
-       scale: 0.5,
+       margin: { top: "3cm", bottom: "6cm", left: "3cm", right: "4cm"},
+       scale: 0.58,
        height: 500,
        landscape: true
 
    })
+  
        .then(function(group){
        kendo.drawing.pdf.saveAs(group, "planning.pdf")
    });

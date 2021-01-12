@@ -16,13 +16,15 @@ router.route('/editer-evenement/:eventId')
     .all(authMiddleware.authenticateToken)
     .get(eventController.eventByIdEdit)
     .post(eventController.editEvent_admin_post)
+    
+router.route('/error')
+    .get(eventController.error_get)
+
 
 router.route('/:eventId')
     .all(authMiddleware.authenticateToken)
     .get(eventController.eventById)
     .delete(eventController.deleteEvent_admin_delete)
-
-
 
 
 module.exports = router

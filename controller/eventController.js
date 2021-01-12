@@ -9,6 +9,12 @@ const addEvent_admin_get = (req, res) => {
 
 
 
+const error_get = (req, res) => {
+    res.render('error')
+}
+
+
+
 const addEvent_admin_post = async (req, res) => {
     const schoolYearObject = await schoolYear.findOne({schoolYear :req.body.schoolYear})
     console.log("object", schoolYearObject)
@@ -193,6 +199,8 @@ module.exports = {
     eventById,
     allEvents,
     editEvent_admin_post,
-    eventByIdEdit
+    eventByIdEdit,
+    error_get
+
     
 }
