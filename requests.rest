@@ -13,7 +13,6 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
     "studentMail" : "zoe@test.com",
     "studentPassword" : "zoe"
 }
@@ -47,7 +46,7 @@ GET http://localhost:5000/evenements/5feb877ba4811a6c936f51f8
 
 ###
 
-POST http://localhost:5000/reserver/5ff111fed4459a4b3909e614
+POST http://localhost:5000/reserver/5ffc179a1ed9214dbcc2e902
 Content-Type: application/json
 
 {

@@ -11,59 +11,18 @@
   </head>
   <body>
     <!-- barre navigation -->
-    <div class="container-fluid shadow bg-white rounded navigationbar">
-      <div class="row">
-          <div class="col d-flex align-items-center">
-              <a class="navbar-brand" href="#">
-                      <img src="logo.png" height="50" alt="" loading="lazy">
-              </a>
-          </div>
-          <div class="col">
-              <div class="row">
-                  <div class="d-xl-block col-xl-1"></div>
-                  <div class="d-md-block col-md-4 col-lg-6 col-xl-6"></div>
-                  <!-- afficher le nom de l'utilisateur ou "Admin" lorsqu'on est connecté -->
-                  <div class="col my-3 d-flex justify-content-end flex-nowrap">
-                      <p>PrénomEtu NomEtu</p>
-                  </div>
-                  <!-- afficher lorsqu'on est connecté -->
-                  <div class="col my-3">
-                      <a id="connectbutton" href="">Déconnexion</a>
-                  </div>
-
-                  <!-- afficher lorsqu'on n'est pas connecté (sauf sur la page de login) -->
-                  <!-- <div class="col my-3">
-                      <a href="">Connexion</a>
-                  </div> -->
-              </div>
-          </div>
-      </div>
-    </div>
+    
       <div class="container-fluid my-5 content ">
           <div class="row">
               <div class="col-md-4">
                 <div class="col my-4">
                 <ul class="list-group">
+                  <% for(var sudent of studentsWithoutGroup) {  %>
                     <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                      PrénomEt NomEt
+                      <input class="form-check-input me-1" type="checkbox" value="<%- student._id %>" aria-label="...">
+                      <%= student.studentFirstName student.studentLastName %>
                     </li>
-                    <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                      PrénomEt NomEt
-                    </li>
-                    <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                      PrénomEt NomEt
-                    </li>
-                    <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                      PrénomEt NomEt
-                    </li>
-                    <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                      PrénomEt NomEt
-                    </li>
+                  <%}%>
                   </ul>
                  </div> 
               </div>

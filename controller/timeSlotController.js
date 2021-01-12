@@ -2,8 +2,9 @@ const timeSlot = require('../models/timeSlotModel')
 const group = require('../models/groupModel')
 const event = require('../models/eventModel')
 const student = require('../models/studentModel')
-const createTimeSlot_get = (req, res) => {
-    res.render('create_reservation')
+const createTimeSlot_get = async (req, res) => {
+    const studentsWithoutGroup = await student.find({ groupId: null})
+    res.render('create_reservation', { studentsWithoutGroup : studentsWithoutGroup })
 }
 
 const createTimeSlot_post = (req, res) => {
@@ -11,6 +12,7 @@ const createTimeSlot_post = (req, res) => {
     const newGroup = new group({
         studentsId : req.body.arrayOfIdStudents
     })
+    console.log(req.body.startingTime)
     newGroup.save((err,savedGroup) => {
         if (err) { console.log(err); }
         // Should return saved doc here

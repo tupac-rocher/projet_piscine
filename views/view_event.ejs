@@ -29,9 +29,11 @@
 <div class="container-fluid content">
     <div class="row">
         <div class="col-md-6 col-xl-8 d-none d-md-flex"></div>
+        <% if (typeof user.pseudoAdmin != "undefined") { %>
         <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-end">
             <a class="btn btn-primary smallButton" href="/evenements/editer-evenement/<%- event._id %>" role="button"><p><i class="fas fa-edit" title="Editer"></i> Editer</p></a>
         </div>
+        <%}%>
         <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-start">
             <a class="btn btn-primary smallButton download" href="#" role="button" title="Télécharger format PDF" onclick="ExportPdf()"><p><i class="fas fa-download"></i> Télécharger format PDF</p></a>
         </div>
@@ -41,22 +43,15 @@
     <div class="row">
         <div class="col d-flex justify-content-center noPadding">
             <div class="count shadow rounded">
-                <p>Reservations:</p>
-                <p><%- event.timeSlots.length%></p>
+                <p>Nombre de réservation : <%- event.timeSlots.length%></p>
             </div>
         </div>
     </div>
 </div>
+<div class="container">
+    <div id='calendar'></div>
+</div>
 
-
-
-
-
-
-
-
-
-<div id='calendar'></div>
 <!--<script src='/dist/view_event.js'></script>-->
 
 <!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -75,7 +70,7 @@
 
     });
 </script>-->
-<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script> // dependency for Kendo UI API
+<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script> <!-- dependency for Kendo UI API -->
 <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
 
@@ -86,7 +81,7 @@ kendo.drawing
    { 
        paperSize: "A4",
        margin: { top: "2", bottom: "2cm" },
-       scale: 0.25,
+       scale: 0.5,
        height: 500,
        landscape: true
 
@@ -110,14 +105,33 @@ kendo.drawing
 
 <script> 
     var event = <%- JSON.stringify(event) %>; 
+    var arrayOfTimeSlots = <%- JSON.stringify(arrayOfTimeSlots) %>;
     console.log(event)
     document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth'
+    initialView: 'timeGridWeek',
+    locale: 'fr',
+    allDayText: '',
+    header: false,
+    buttonText: {
+        today: 'Aujourd\'hui',
+        month: 'Mois',
+        week: 'Semaine',
+    },
+    firstDay : 1,
+    slotMinTime: "08:00:00",
+    slotMaxTime: "19:00:00",
+    height : 700,
+    events: arrayOfTimeSlots
     });
     calendar.render();
     });
 </script> 
+<style lang="css">
+    .fc-agenda-slots td div {
+         height: 400px !important;
+    }
+</style>
 </body>
 </html>

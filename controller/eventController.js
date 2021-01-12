@@ -1,6 +1,7 @@
 const { isValidObjectId } = require('mongoose')
 const event = require('../models/eventModel')
 const schoolYear = require('../models/schoolYearModel')
+const timeSlot = require('../models/timeSlotModel')
 
 const addEvent_admin_get = (req, res) => {
     res.render('create_event', { user: req.user})
@@ -123,10 +124,17 @@ const deleteEvent_admin_delete = (req, res) => {
 const eventById = (req, res) => {
     console.log('Before request',req.params)
     event.findById(req.params.eventId)
-        .then(result => {
+        .then(async (result) => {
+            console.log(result)
+            let arrayOfTimeSlots = []
+            for (const timeSlotId of result.timeSlots) {
+                const timeSlotToAdd = await timeSlot.findById(timeSlotId)
+                arrayOfTimeSlots.push(timeSlotToAdd)
+            }
+            console.log('mes time slots', arrayOfTimeSlots)
             console.log('After request', req.params)
             //res.json(result)
-            res.render('view_event', {event : result, user: req.user, eventId : req.params.eventId})
+            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId})
         })
         .catch(err => {
             console.log(err);
