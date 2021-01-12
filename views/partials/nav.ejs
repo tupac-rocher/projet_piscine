@@ -20,7 +20,7 @@
                     <% if (locals.user) {%>
                         <% if (typeof user.adminPseudo != "undefined") {%>
                         <div class="col my-3 d-flex justify-content-end flex-nowrap">
-                            <p>Administrateur</p>
+                            <p>Admin</p>
                         </div>
                         <% } else{ %>
                         <!-- afficher le nom de l'utilisateur ou "Admin" lorsqu'on est connecté -->
@@ -29,15 +29,15 @@
                         </div>
                         <%}%>
                         <!-- afficher lorsqu'on est connecté -->
-                        <div class="col my-3">
+                        <div class="col my-3 ">
                             <a id="connectbuttonhref" href="/logout">Déconnexion</a>
                         </div>
                     <% } else{ %>
                     <div class="col my-3">
-                        <a id="connectbuttonhref" href="/login">Se connecter</a>
+                        <a id="connectbuttonhref" href="/login">Connexion Etudiant</a>
                     </div>
                     <div class="col my-3">
-                        <a id="connectbuttonhref" href="/loginAdmin">Se connecter en tant qu'administrateur</a>
+                        <a id="connectbuttonhref" href="/loginAdmin">Connexion Administrateur</a>
                     </div>
                     <%}%>
                 </div>
