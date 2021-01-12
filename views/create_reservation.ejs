@@ -17,10 +17,10 @@
               <div class="col-md-4">
                 <div class="col my-4">
                 <ul class="list-group">
-                  <% for(var sudent of studentsWithoutGroup) {  %>
+                  <% for(var student of studentsWithoutGroup) {  %>
                     <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="<%- student._id %>" aria-label="...">
-                      <%= student.studentFirstName student.studentLastName %>
+                      <input class="form-check-input me-1" type="checkbox" value="<% student._id %>" aria-label="...">
+                      <%- student.studentFirstName %> <%- student.studentLastName %>
                     </li>
                   <%}%>
                   </ul>
