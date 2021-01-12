@@ -93,15 +93,11 @@ const editEvent_admin_post = async (req, res) => {
     numberOfTeachers : numberOfTeachers,
     schoolYearId : schoolYearObject._id
     })
+    _id = req.params.eventId
     console.log(newEvent)
     try{
-        newEvent.save()
-            .then(result => {
-                res.redirect('/evenements')
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        
+        event.findByIdAndUpdate({_id:_id},newEvent)
 
     } catch(err){
         console.log(err)
@@ -142,12 +138,28 @@ const eventByIdEdit = (req, res) => {
             // conversion des dates 
             maximumLimitDate=""+result.maximumLimitDate.getFullYear()+"-"+ (result.maximumLimitDate.getMonth()+1 < 10 ?"0"+(result.maximumLimitDate.getMonth()+1):(result.maximumLimitDate.getMonth()+1))+"-"+(result.maximumLimitDate.getDate()< 10 ?"0"+result.maximumLimitDate.getDate():result.maximumLimitDate.getDate())
             startingDate=""+result.startingDate.getFullYear()+"-"+ (result.startingDate.getMonth()+1 < 10 ?"0"+(result.startingDate.getMonth()+1):(result.startingDate.getMonth()+1))+"-"+(result.startingDate.getDate()< 10 ?"0"+result.startingDate.getDate():result.startingDate.getDate())
+            endDate =""+result.startingDate.getFullYear()+"-"+ (result.startingDate.getMonth()+1 < 10 ?"0"+(result.startingDate.getMonth()+1):(result.startingDate.getMonth()+1))+"-"+(result.startingDate.getDate()< 10 ?"0"+result.startingDate.getDate():result.startingDate.getDate())
+            mois = result.startingDate.getMonth()+1 
+            jour = result.startingDate.getDate() + Math.trunc(result.duration)
+            ans = result.startingDate.getFullYear()
+            if (jour > 31) {
+                jour - 31 * (jour%31);
+                mois = mois + jour%31
+                if (mois > 12) {
+                    mois = mois - 12 * (mois%12);
+                    ans = ans + (mois%12)
+                }
+              }
+            endDate = "" + ans + "-" + (mois < 10 ? "0" + mois : "" + mois) + "-" + (jour < 10 ? "0" + jour : "" + jour)
+            console.log(endDate)
             // Construction des Promos 
             IG3 = result.schoolYearId == "5feb77f8b2c296d338c8fdfb" ? IG3 = "checked" : IG3 = ""
             IG4 = result.schoolYearId == "5feb7806b2c296d338c8fdfc" ? IG4 = "checked" : IG4 = ""
             IG5 = result.schoolYearId == "5feb781eb2c296d338c8fdfd" ? IG5 = "checked" : IG5 = ""
-
-            res.render('admin_edit_event', {event : result, maximumLimitDate : maximumLimitDate ,startingDate : startingDate ,IG3 : IG3 ,IG4 : IG4 ,IG5 : IG5})
+            // Construction projet / Stage 
+            Projet = result.timeSlotDuration == 1.5 ? Projet = "checked" : Projet = ""
+            Stage = result.timeSlotDuration == 1 ? Stage = "checked" : Stage = ""
+            res.render('admin_edit_event', {event : result,endDate :endDate, maximumLimitDate : maximumLimitDate ,startingDate : startingDate ,IG3 : IG3 ,IG4 : IG4 ,IG5 : IG5 ,Stage : Stage,Projet : Projet})
         })
         .catch(err => {
             console.log(err);
