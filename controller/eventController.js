@@ -126,11 +126,11 @@ const eventById = (req, res) => {
         .then(async (result) => {
             console.log(result)
             // Check number of days left to book
-            let daysLeftToBook = dateDiffInDays(new Date(result.maximumLimitDate), new Date(Date.now()))
+            let daysLeftToBook = dateDiffInDays(new Date(Date.now()),new Date(result.maximumLimitDate)) + 1
             if (daysLeftToBook <= 0) {
                 datysLeftToBook = 0
             }
-            // Check if id of event is the same from the student logged in
+            // Check if id, schoolyear of event are the same from the student logged in,  (à mettre dans le middlewaare ?)
             let authorizedToBook = true
             if (typeof req.user.adminPseudo != "undefined"){
                 authorizedToBook = false
@@ -140,41 +140,57 @@ const eventById = (req, res) => {
                  if (result.schoolYearId != req.user.schoolYearId){
                     authorizedToBook = false
                 } else if (studentLoggedIn.groupsId.length != 0){
-                    const groupsOfStudent = await group.find({ studentsId : studentLoggedIn._id })
-                    for (group of groupsOfStudent) {
-                        const timeSlotFromThisGroup = timeSlot.find({ groupId : group._id })
-                        if (timeSlotFromThisGroup.eventId == result.eventId){
-                            authorizedToBook = false                            
+                    try{
+                        const groupsOfStudent = await group.find({ studentsId : studentLoggedIn._id })
+                        for (const group of groupsOfStudent) {
+                            try {
+                                const timeSlotFromThisGroup = await timeSlot.find({ groupId : group._id })
+                                if (timeSlotFromThisGroup.eventId == result._id){
+                                    authorizedToBook = false                            
+                                }
+                            } catch (err) {
+                                console.log(err)
+                            }
+
                         }
+                        if (daysLeftToBooked = 0){
+                            authorizedToBook = false
+                        }
+                    } catch (err) {
+                        console.log(err)
                     }
-                    if (daysLeftToBooked = 0){
-                        authorizedToBook = false
-                    }
+
                 }
             }
 
             let arrayOfTimeSlots = []
             for (const timeSlotId of result.timeSlots) {
-                const timeSlotToProcess = await timeSlot.findById(timeSlotId)
-                // Starting Time
-                const time = timeSlotToProcess.startingTime.split(':')
-                let timeSlotStart = new Date(timeSlotToProcess.date)
-                console.log(time)
-                timeSlotStart.setHours(time[0])
-                timeSlotStart.setMinutes(time[1])
-                console.log('ici',timeSlotStart)
-                // Ending Time
-                const timeDuration = result.timeSlotDuration.split(':')
-                let timeSlotEnd = new Date(timeSlotStart)
-                console.log(timeDuration)
-                console.log(timeSlotEnd.getMinutes())
-                timeSlotEnd.setTime(timeSlotEnd.setTime()+ (60*60*1000))
-                const timeSlotToAdd = {
-                    title : timeSlotToProcess.classroom,
-                    start : timeSlotStart,
-                    end : timeSlotEnd
+                try {
+                    const timeSlotToProcess = await timeSlot.findById(timeSlotId)
+                    // Starting Time
+                    const time = timeSlotToProcess.startingTime.split(':')
+                    let timeSlotStart = new Date(timeSlotToProcess.date)
+                    console.log(timeSlotStart)
+                    timeSlotStart.setHours(time[0])
+                    timeSlotStart.setMinutes(time[1])
+                    console.log('ici',timeSlotStart)
+                    // Ending Time
+                    const timeDuration = result.timeSlotDuration.split(':')
+                    let timeSlotEnd = new Date(timeSlotStart)
+                    console.log('timeSlotEnd', timeSlotEnd)
+                    console.log(timeDuration)
+                    console.log(timeSlotEnd.getMinutes())
+                    // ICI PROBLEME
+                    timeSlotEnd.setTime(timeSlotEnd.setTime()+ (60*60*1000))
+                    const timeSlotToAdd = {
+                        title : timeSlotToProcess.classroom,
+                        start : timeSlotStart,
+                        end : timeSlotEnd
+                    }
+                    arrayOfTimeSlots.push(timeSlotToAdd)
+                } catch (err) {
+                    console.log(err)
                 }
-                arrayOfTimeSlots.push(timeSlotToAdd)
             }
             //res.json(result)
             res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook})

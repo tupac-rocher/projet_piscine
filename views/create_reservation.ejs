@@ -24,10 +24,11 @@
                 <input type="text" id="companyName" name="companyName">
               <% } else {%>
             <ul class="list-group">
-              <% for(var student of studentsWithoutGroupInThisEvent) {  %>
+              <% for(var student of allStudents) {  %>
                 <li class="list-group-item">
                   <% if (student._id == user._id){ %>
                     <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="..." checked disabled>
+                    <input type="hidden" name="arrayOfIdStudents" value="<%- student._id %>">
                     <%- student.studentFirstName %> <%- student.studentLastName %>
                   <% } else { %>
                     <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="...">
