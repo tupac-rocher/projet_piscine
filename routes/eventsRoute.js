@@ -8,12 +8,12 @@ router.route('/')
     .get(eventController.allEvents)
 
 router.route('/ajouter-evenement')
-    .all(authMiddleware.authenticateToken)
+    .all(authMiddleware.authenticateTokenAdmin)
     .get(eventController.addEvent_admin_get)
     .post(eventController.addEvent_admin_post)
 
 router.route('/editer-evenement/:eventId')
-    .all(authMiddleware.authenticateToken)
+    .all(authMiddleware.authenticateTokenAdmin)
     .get(eventController.eventByIdEdit)
     .post(eventController.editEvent_admin_post)
 

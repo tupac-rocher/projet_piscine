@@ -5,7 +5,7 @@ const eventSchema = new mongoose.Schema({
     startingDate : { type: Date, required : true},
     duration : { type : Number, required : true},
     maximumLimitDate : { type: Date, required : true},
-    timeSlotDuration : { type: Number, required : true},
+    timeSlotDuration : { type: String, required : true},
     numberOfTeachers : { type: Number, required : true},
     schoolYearId : { type: mongoose.ObjectId, required : true},
     timeSlots : [{type: mongoose.ObjectId, ref: "timeSlots"}]

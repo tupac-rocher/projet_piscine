@@ -1,4 +1,5 @@
 const { isValidObjectId } = require('mongoose')
+const { eventNames } = require('../models/eventModel')
 const event = require('../models/eventModel')
 const schoolYear = require('../models/schoolYearModel')
 const timeSlot = require('../models/timeSlotModel')
@@ -24,19 +25,19 @@ const addEvent_admin_post = async (req, res) => {
     }
     const duration = dateDiffInDays(new Date(req.body.startingDate), new Date(req.body.finishDate));
     let timeSlotDuration = 0
-    if (req.body.type === "Projet") {
-        timeSlotDuration = 1.5
-    }else{
-        timeSlotDuration = 1
-    }
     let numberOfTeachers = 0
+    let eventName = req.body.eventName
     if (req.body.type === "Projet") {
+        timeSlotDuration = "01:30"
         numberOfTeachers = 4
+        eventName = eventName + ' - Projet('+schoolYearObject.schoolYear+')'
     }else{
+        timeSlotDuration = "01:00"
         numberOfTeachers = 3
+        eventName = eventName + ' - Stage('+schoolYearObject.schoolYear+')'
     }
     const newEvent = new event({
-    eventName : req.body.eventName,
+    eventName : eventName,
     startingDate : req.body.startingDate,
     duration : duration,
     maximumLimitDate : req.body.maximumLimitDate,
@@ -74,19 +75,19 @@ const editEvent_admin_post = async (req, res) => {
     }
     const duration = dateDiffInDays(new Date(req.body.startingDate), new Date(req.body.finishDate));
     let timeSlotDuration = 0
-    if (req.body.type === "Projet") {
-        timeSlotDuration = 1.5
-    }else{
-        timeSlotDuration = 1
-    }
     let numberOfTeachers = 0
+    let eventName = req.body.eventName
     if (req.body.type === "Projet") {
+        timeSlotDuration = "01:30"
         numberOfTeachers = 4
+        eventName = eventName + ' - Projet('+schoolYearObject.schoolYear+')'
     }else{
+        timeSlotDuration = "01:00"
         numberOfTeachers = 3
+        eventName = eventName + ' - Stage('+schoolYearObject.schoolYear+')'
     }
     const newEvent = new event({
-    eventName : req.body.eventName,
+    eventName : eventName,
     startingDate : req.body.startingDate,
     duration : duration,
     maximumLimitDate : req.body.maximumLimitDate,
@@ -124,7 +125,25 @@ const eventById = (req, res) => {
             console.log(result)
             let arrayOfTimeSlots = []
             for (const timeSlotId of result.timeSlots) {
-                const timeSlotToAdd = await timeSlot.findById(timeSlotId)
+                const timeSlotToProcess = await timeSlot.findById(timeSlotId)
+                // Starting Time
+                const time = timeSlotToProcess.startingTime.split(':')
+                let timeSlotStart = new Date(timeSlotToProcess.date)
+                console.log(time)
+                timeSlotStart.setHours(time[0])
+                timeSlotStart.setMinutes(time[1])
+                console.log('ici',timeSlotStart)
+                // Ending Time
+                const timeDuration = result.timeSlotDuration.split(':')
+                let timeSlotEnd = new Date(timeSlotStart)
+                console.log(timeDuration)
+                console.log(timeSlotEnd.getMinutes())
+                timeSlotEnd.setTime(timeSlotEnd.setTime()+ (60*60*1000))
+                const timeSlotToAdd = {
+                    title : timeSlotToProcess.classroom,
+                    start : timeSlotStart,
+                    end : timeSlotEnd
+                }
                 arrayOfTimeSlots.push(timeSlotToAdd)
             }
             console.log('mes time slots', arrayOfTimeSlots)

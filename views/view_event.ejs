@@ -11,21 +11,14 @@
 
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
-<!--
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.min.js"></script>
-    <script src="https://kit.fontawesome.com/448229a374.js" crossorigin="anonymous"></script>
-    <link href='/dist/view_event.css' rel='stylesheet'/>
--->  
 
 <title>Vue Evénements</title>
 </head>
 <body>
 <%- include ('./partials/nav') %>
+<% if (typeof user.adminPseudo == "undefined"){%>
 <a href="/reserver/<%- eventId%>" class="btn btn-info" role="button">Faire une réservation</a>
-
+<%}%>
 <div class="container-fluid content">
     <div class="row">
         <div class="col-md-6 col-xl-8 d-none d-md-flex"></div>
@@ -42,8 +35,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col d-flex justify-content-center noPadding">
-            <div class="count shadow rounded">
-                <p>Nombre de réservation : <%- event.timeSlots.length%></p>
+            <div class="count rounded">
+                <h2><%- event.eventName %></h2>
+                <p>Nombre de réservation : <%- event.timeSlots.length %></p>
             </div>
         </div>
     </div>
@@ -52,24 +46,6 @@
     <div id='calendar'></div>
 </div>
 
-<!--<script src='/dist/view_event.js'></script>-->
-
-<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-    $('#calendar').fullCalendar({
-    //plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
-    locale:'fr',
-    initialView: 'dayGridWeek',
-    header: {
-        left: 'prev,next,today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
-        }
-    });
-
-    });
-</script>-->
 <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script> <!-- dependency for Kendo UI API -->
 <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
@@ -106,7 +82,7 @@ kendo.drawing
 <script> 
     var event = <%- JSON.stringify(event) %>; 
     var arrayOfTimeSlots = <%- JSON.stringify(arrayOfTimeSlots) %>;
-    console.log(event)
+    console.log(arrayOfTimeSlots)
     document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {

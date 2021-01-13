@@ -6,8 +6,44 @@ const authenticateToken = (req, res, next) => {
     if(token == null) return res.sendStatus(401)
     try {
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
-            req.user = user
-            next()
+                req.user = user
+                next()
+        })
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+const authenticateTokenStudent = (req, res, next) => {
+    const token = req.cookies.jwt
+    if(token == null) return res.sendStatus(401)
+    try {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
+            if(typeof user.studentFirstName != "undefined"){
+                console.log(user)
+                req.user = user
+                next()
+            } else {
+                res.sendStatus(401)
+            }
+        })
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+const authenticateTokenAdmin = (req, res, next) => {
+    const token = req.cookies.jwt
+    if(token == null) return res.sendStatus(401)
+    try {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
+            if(typeof user.adminPseudo != "undefined"){
+                req.user = user
+                next()
+            } else {
+                res.sendStatus(401)
+            }
+
         })
     } catch(e) {
         console.log(e)
@@ -15,5 +51,7 @@ const authenticateToken = (req, res, next) => {
 }
 
 module.exports = {
-    authenticateToken
+    authenticateToken,
+    authenticateTokenStudent,
+    authenticateTokenAdmin
 }

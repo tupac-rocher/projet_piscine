@@ -6,60 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="admin_creat_events.css">
     <title>Création d'évenement étudiant</title>
   </head>
   <body>
-    <!-- barre navigation -->
-    
+    <%- include ('./partials/nav') %>
+    <form method="POST" action="/reserver/<%- eventIdAndType._id %>">
       <div class="container-fluid my-5 content ">
-          <div class="row">
-              <div class="col-md-4">
-                <div class="col my-4">
-                <ul class="list-group">
-                  <% for(var student of studentsWithoutGroup) {  %>
-                    <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox" value="<% student._id %>" aria-label="...">
-                      <%- student.studentFirstName %> <%- student.studentLastName %>
-                    </li>
-                  <%}%>
-                  </ul>
-                 </div> 
-              </div>
-              <div class="col-4 align-self-end">
-                <div class="row justify-content-center">
-                  <div class="col-4">
-                    <button type="button" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Réserver</button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-4">
-              <div class="col my-4">
-              <ul class="list-group">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="col my-4">
+              <% if (eventIdAndType.timeSlotDuration == '01:00') {%>
+                <label for="tutorLastName">Nom du tuteur entreprise</label>
+                <input type="text" id="tutorLastName" name="tutorLastName">
+                <label for="tutorFirstName">Prénom du tuteur entreprise</label>
+                <input type="text" id="tutorFirstName" name="tutorFirstName">
+                <label for="CompanyName">Nom de l'entreprise</label>
+                <input type="text" id="CompanyName" name="CompanyName">
+              <% } else {%>
+            <ul class="list-group">
+              <% for(var student of studentsWithoutGroup) {  %>
                 <li class="list-group-item">
-                  <input type="radio" id="IG5" name="Promo" value="IG5">
-                  11h30-12h30(salle12)
+                  <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="...">
+                  <%- student.studentFirstName %> <%- student.studentLastName %>
                 </li>
-                <li class="list-group-item">
-                  <input type="radio" id="IG5" name="Promo" value="IG5">
-                  11h30-12h30(salle13)
-                </li>
-                <li class="list-group-item">
-                  <input type="radio" id="IG5" name="Promo" value="IG5">
-                  9h30-10h30(salle 12)
-                </li>
-                <li class="list-group-item">
-                  <input type="radio" id="IG5" name="Promo" value="IG5">
-                  8h30-9h30(salle 12)
-                </li>
-                <li class="list-group-item">
-                  <input type="radio" id="IG5" name="Promo" value="IG5">
-                  14h00-15h00(salle 10)
-                </li>
+              <%}%>
               </ul>
-              </div>
+              <% } %>
+              </div> 
           </div>
-              
+          <div class="col my-5">
+            <label for="start">Date de début:</label>
+            <input type="date" id="start" name="date"
+                value="current"
+                min="2021-01-01" max="2025-12-31">
+            <label for="classroom">Numéro de la salle</label>
+            <input type="number" id="classroom" name="classroom">
+          </div>
+          <div class="col-3 align-self-end">
+                <label for="startingTime">Heure de début:</label>
+                <input type="time" id="startingTime" name="startingTime" min="08:00" max="19:00">
+                <button type="submit" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Réserver</button>
+              </div>
+        </div>    
       </div>
-    </body>
+    </form>
+  </body>
 </html>
