@@ -1,8 +1,17 @@
-const { isValidObjectId } = require('mongoose')
-const { eventNames } = require('../models/eventModel')
 const event = require('../models/eventModel')
+const group = require('../models/groupModel')
 const schoolYear = require('../models/schoolYearModel')
 const timeSlot = require('../models/timeSlotModel')
+
+    // a and b are javascript Date objects
+function dateDiffInDays(a, b) {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
 
 const addEvent_admin_get = (req, res) => {
     res.render('create_event', { user: req.user})
@@ -13,17 +22,9 @@ const addEvent_admin_get = (req, res) => {
 const addEvent_admin_post = async (req, res) => {
     const schoolYearObject = await schoolYear.findOne({schoolYear :req.body.schoolYear})
     console.log("object", schoolYearObject)
-    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-
-    // a and b are javascript Date objects
-    function dateDiffInDays(a, b) {
-        // Discard the time and time-zone information.
-        const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-        const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-
-        return Math.floor((utc2 - utc1) / _MS_PER_DAY);
-    }
     const duration = dateDiffInDays(new Date(req.body.startingDate), new Date(req.body.finishDate));
+    console.log('startingDate : ' + req.body.startingDate)
+    console.log('endingDate : ' + req.body.finishDate)
     let timeSlotDuration = 0
     let numberOfTeachers = 0
     let eventName = req.body.eventName
@@ -123,6 +124,34 @@ const eventById = (req, res) => {
     event.findById(req.params.eventId)
         .then(async (result) => {
             console.log(result)
+            // Check number of days left to book
+            let daysLeftToBook = dateDiffInDays(new Date(result.maximumLimitDate), Date.now())
+            if (daysLeftToBook <= 0) {
+                datysLeftToBook = 0
+            }
+            // Check if id of event is the same from the student logged in
+            let authorizedToBook = true
+            if (typeof user.adminPseudo != "undefined"){
+                authorizedToBook = false
+            }
+            else {
+                const studentLoggedIn = await student.findById(req.user._id)
+                 if (result.schoolYearId != user.schoolYearId){
+                    authorizedToBook = false
+                } else if (studentLoggedIn.groupsId.length != 0){
+                    const groupsOfStudent = await group.find({ studentsId : studentLoggedIn._id })
+                    for (group of groupsOfStudent) {
+                        const timeSlotFromThisGroup = timeSlot.find({ groupId : group._id })
+                        if (timeSlotFromThisGroup.eventId == result.eventId){
+                            authorizedToBook = false                            
+                        }
+                    }
+                    if (daysLeftToBooked = 0){
+                        authorizedToBook = false
+                    }
+                }
+            }
+
             let arrayOfTimeSlots = []
             for (const timeSlotId of result.timeSlots) {
                 const timeSlotToProcess = await timeSlot.findById(timeSlotId)
@@ -146,10 +175,8 @@ const eventById = (req, res) => {
                 }
                 arrayOfTimeSlots.push(timeSlotToAdd)
             }
-            console.log('mes time slots', arrayOfTimeSlots)
-            console.log('After request', req.params)
             //res.json(result)
-            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId})
+            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId, authorizedToBook : authorizedToBook, daysLeftToBooked :daysLeftToBook})
         })
         .catch(err => {
             console.log(err);

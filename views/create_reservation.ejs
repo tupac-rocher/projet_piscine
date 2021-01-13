@@ -10,24 +10,30 @@
   </head>
   <body>
     <%- include ('./partials/nav') %>
-    <form method="POST" action="/reserver/<%- eventIdAndType._id %>">
+    <form method="POST" action="/reserver/<%- eventInfo._id %>">
       <div class="container-fluid my-5 content ">
         <div class="row">
           <div class="col-md-4">
             <div class="col my-4">
-              <% if (eventIdAndType.timeSlotDuration == '01:00') {%>
+              <% if (eventInfo.timeSlotDuration == '01:00') {%>
                 <label for="tutorLastName">Nom du tuteur entreprise</label>
                 <input type="text" id="tutorLastName" name="tutorLastName">
                 <label for="tutorFirstName">Prénom du tuteur entreprise</label>
                 <input type="text" id="tutorFirstName" name="tutorFirstName">
-                <label for="CompanyName">Nom de l'entreprise</label>
-                <input type="text" id="CompanyName" name="CompanyName">
+                <label for="companyName">Nom de l'entreprise</label>
+                <input type="text" id="companyName" name="companyName">
               <% } else {%>
             <ul class="list-group">
-              <% for(var student of studentsWithoutGroup) {  %>
+              <% for(var student of studentsWithoutGroupInThisEvent) {  %>
                 <li class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="...">
+                  <% if (student._id == user._id){ %>
+                    <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="..." checked disabled>
+                    <%- student.studentFirstName %> <%- student.studentLastName %>
+                  <% } else { %>
+                    <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="...">
                   <%- student.studentFirstName %> <%- student.studentLastName %>
+                  <% } %>
+                  
                 </li>
               <%}%>
               </ul>
@@ -38,7 +44,7 @@
             <label for="start">Date de début:</label>
             <input type="date" id="start" name="date"
                 value="current"
-                min="2021-01-01" max="2025-12-31">
+                min="<%- minDate %>" max="<%- maxDate %>">
             <label for="classroom">Numéro de la salle</label>
             <input type="number" id="classroom" name="classroom">
           </div>

@@ -17,7 +17,9 @@
 <body>
 <%- include ('./partials/nav') %>
 <% if (typeof user.adminPseudo == "undefined"){%>
-<a href="/reserver/<%- eventId%>" class="btn btn-info" role="button">Faire une réservation</a>
+    <% if (authorizedToBook) { %>
+    <a href="/reserver/<%- eventId%>" class="btn btn-info mt-5 ml-5" role="button">Faire une réservation</a>
+    <% } %>
 <%}%>
 <div class="container-fluid content">
     <div class="row">
