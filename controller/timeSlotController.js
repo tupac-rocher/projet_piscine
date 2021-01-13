@@ -2,23 +2,32 @@ const timeSlot = require('../models/timeSlotModel')
 const group = require('../models/groupModel')
 const event = require('../models/eventModel')
 const student = require('../models/studentModel')
+const { copy } = require('../routes/eventsRoute')
 const createTimeSlot_get = async (req, res) => {
     const currentEvent = await event.findById(req.params.eventId)
-    let allStudents = []
+    let allStudentsWithoutBookingOnEvent = []
     if (currentEvent.timeSlotDuration == "01:30"){
         try{
-            allStudents = await student.find({ schoolYearId : currentEvent.schoolYearId}).select('studentFirstName studentLastName groupsId')
-            console.log('allSutdent', allStudents)
+            const allStudents = await student.find({ schoolYearId : currentEvent.schoolYearId}).select('studentFirstName studentLastName groupsId')
+            allStudentsWithoutBookingOnEvent = JSON.parse(JSON.stringify(allStudents))
             for (const student of allStudents){
+                console.log("lol",student)
                 if (student.groupsId.length != 0){
                     try {
-                        let groupsOfStudent = await group.find({ studentsId : student._id }).catch(err => console.log(err))
+                        const groupsOfStudent = await group.find({ studentsId : student._id })
                         for (const group of groupsOfStudent) {
                             try {
-                                let timeSlotFromThisGroup = await timeSlot.find({ groupId : group._id })
-                                if (timeSlotFromThisGroup.eventId == req.params.eventId){
-                                    // il a déjà une réservation dans la soutenance     
-                                    allStudents.filter(studentOfArray => studentOfArray._id  != student._id)
+                                let timeSlotFromThisGroup = await timeSlot.findOne({ groupId : group._id })
+                                if (timeSlotFromThisGroup.eventId.equals(req.params.eventId)){
+                                    // il a déjà une réservation dans la soutenance 
+                                    console.log("entré")
+                                    allStudentsWithoutBookingOnEvent.filter(studentOfArray => studentOfArray._id != student._id)
+                                    /*allStudentsWithoutBookingOnEvent.filter(function(value, index, arr){
+
+                                        console.log(value._id)
+                                        console.log(student._id)
+                                        return value
+                                    })*/
                                 } 
                             } catch (err) {
                                 console.log(err)
@@ -33,19 +42,20 @@ const createTimeSlot_get = async (req, res) => {
             console.log(err)
         }
     }
+    console.log(allStudentsWithoutBookingOnEvent)
     // Set min et max date for booking
     let eventInfo = await event.findById(req.params.eventId).select('timeSlotDuration startingDate duration')
     const minDate = eventInfo.startingDate.toISOString().split('T')[0]
     eventInfo.endingDate = new Date(eventInfo.startingDate)
     eventInfo.endingDate.setDate(eventInfo.endingDate.getDate() + eventInfo.duration - 1)
     const maxDate = eventInfo.endingDate.toISOString().split('T')[0]
-    res.render('create_reservation', { allStudents : allStudents, minDate: minDate, maxDate: maxDate, eventInfo: eventInfo, user: req.user})
+    res.render('create_reservation', { allStudents : allStudentsWithoutBookingOnEvent, minDate: minDate, maxDate: maxDate, eventInfo: eventInfo, user: req.user})
 }
 
 const createTimeSlot_post = async (req, res) => {
     const eventdType = await event.findById(req.params.eventId).select('timeSlotDuration')
     let newGroup = {} 
-    if (eventdType == '01:00'){
+    if (eventdType.timeSlotDuration == '01:00'){
         newGroup = new group({
             studentsId : [req.user._id],
             tutorLastName : req.body.tutorLastName,

@@ -20,7 +20,6 @@ const authenticateTokenStudent = (req, res, next) => {
     try {
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
             if(typeof user.studentFirstName != "undefined"){
-                console.log(user)
                 req.user = user
                 next()
             } else {

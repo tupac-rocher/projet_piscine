@@ -121,10 +121,8 @@ const deleteEvent_admin_delete = (req, res) => {
 }
 
 const eventById = (req, res) => {
-    console.log('Before request',req.params)
     event.findById(req.params.eventId)
         .then(async (result) => {
-            console.log(result)
             // Check number of days left to book
             let daysLeftToBook = dateDiffInDays(new Date(Date.now()),new Date(result.maximumLimitDate)) + 1
             if (daysLeftToBook <= 0) {
@@ -142,10 +140,11 @@ const eventById = (req, res) => {
                 } else if (studentLoggedIn.groupsId.length != 0){
                     try{
                         const groupsOfStudent = await group.find({ studentsId : studentLoggedIn._id })
+                        console.log('Group', groupsOfStudent)
                         for (const group of groupsOfStudent) {
                             try {
-                                const timeSlotFromThisGroup = await timeSlot.find({ groupId : group._id })
-                                if (timeSlotFromThisGroup.eventId == result._id){
+                                const timeSlotFromThisGroup = await timeSlot.findOne({ groupId : group._id })
+                                if (timeSlotFromThisGroup.eventId.equals(result._id)){
                                     authorizedToBook = false                            
                                 }
                             } catch (err) {
@@ -177,11 +176,11 @@ const eventById = (req, res) => {
                     // Ending Time
                     const timeDuration = result.timeSlotDuration.split(':')
                     let timeSlotEnd = new Date(timeSlotStart)
-                    console.log('timeSlotEnd', timeSlotEnd)
-                    console.log(timeDuration)
-                    console.log(timeSlotEnd.getMinutes())
                     // ICI PROBLEME
-                    timeSlotEnd.setTime(timeSlotEnd.setTime()+ (60*60*1000))
+                    console.log(timeDuration)
+                    timeSlotEnd.setHours(timeSlotEnd.getHours() + parseInt(timeDuration[0]))
+                    timeSlotEnd.setMinutes(timeSlotEnd.getMinutes() + parseInt(timeDuration[1]))
+                    console.log(timeSlotEnd)
                     const timeSlotToAdd = {
                         title : timeSlotToProcess.classroom,
                         start : timeSlotStart,
