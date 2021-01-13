@@ -91,7 +91,7 @@ const editEvent_admin_post = async (req, res) => {
     }else{
         numberOfTeachers = 3
     }
-    const newEvent = new event({
+    const newEvent = {
     eventName : req.body.eventName,
     startingDate : req.body.startingDate,
     duration : duration,
@@ -99,12 +99,13 @@ const editEvent_admin_post = async (req, res) => {
     timeSlotDuration : timeSlotDuration,
     numberOfTeachers : numberOfTeachers,
     schoolYearId : schoolYearObject._id
-    })
+    }
     _id = req.params.eventId
+    console.log('ici', req.params.eventId)
     console.log(newEvent)
     try{
-        
-        event.findByIdAndUpdate({_id:_id},newEvent)
+        console.log(newEvent)
+        event.findByIdAndUpdate({_id:_id},newEvent).then(result => { console.log(result)})
 
     } catch(err){
         console.log(err)
