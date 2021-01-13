@@ -9,19 +9,26 @@ const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken')
 
-router.get('/loginAdmin', (req, res) => {
-    res.render('loginAdmin')
+router.get('/login', (req, res) => {
+    //Authenticating user
+    res.render('login')
 })
-router.post('/loginAdmin', async (req,res) =>{
-    //Recherche de l'étudiant dans la base de données
-    const tryingToLogAdmin = await admin.findOne({adminPseudo : req.body.adminPseudo}).select('adminPseudo adminPassword')
+
+router.get('/logout', async (req, res) => {
+    res.cookie('jwt',"", {maxAge: 0})
+    res.redirect('/login')
+})
+
+router.post('/login', async (req,res) =>{
+    //Recherche de l'admin dans la base de données
+    const tryingToLogAdmin = await admin.findOne({adminPseudo : req.body.userMail}).select('adminPseudo adminPassword')
     //Check si il existe
     if(tryingToLogAdmin == null){
-        return res.status(400).send('Administrateur introuvable')
+        return res.status(400).send('Utilisateur introuvable')
     }
     try{
         // hash le mdp rentré, désale le mdp de la base de donnée, et il les compare
-        if(await(bcrypt.compare(req.body.adminPassword, tryingToLogAdmin.adminPassword))){
+        if(await(bcrypt.compare(req.body.userPassword, tryingToLogAdmin.adminPassword))){
             console.log(tryingToLogAdmin)
             tryingToLogAdmin.adminPassword = undefined
             console.log(tryingToLogAdmin)
@@ -36,28 +43,16 @@ router.post('/loginAdmin', async (req,res) =>{
         console.log(e)
         res.status(500).send()
     }
-})
 
-router.get('/logout', async (req, res) => {
-    res.cookie('jwt',"", {maxAge: 0})
-    res.redirect('/login')
-})
-
-// SignIn route
-router.get('/login', (req, res) =>{
-    // Authentication User
-    res.render('login')
-})
-router.post('/login', async (req,res) =>{
     //Recherche de l'étudiant dans la base de données
-    const tryingToLogstudent = await student.findOne({studentMail : req.body.studentMail}).select('studentMail studentPassword')
+    const tryingToLogstudent = await student.findOne({studentMail : req.body.userMail}).select('studentMail studentPassword')
     //Check si il existe
     if(tryingToLogstudent == null){
         return res.status(400).send('Utilisateur introuvable')
     }
     try{
         // hash le mdp rentré, désale le mdp de la base de donnée, et il les compare
-        if(await(bcrypt.compare(req.body.studentPassword, tryingToLogstudent.studentPassword))){
+        if(await(bcrypt.compare(req.body.userPassword, tryingToLogstudent.studentPassword))){
             const studentPayload = await student.findOne({studentMail : req.body.studentMail}).select('studentLastName studentFirstName schoolYearId')
             console.log(studentPayload)
             const token = jwt.sign(studentPayload.toJSON(), process.env.ACCESS_TOKEN_SECRET)
