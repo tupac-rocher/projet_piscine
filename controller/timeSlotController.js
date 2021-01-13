@@ -21,7 +21,7 @@ const createTimeSlot_get = async (req, res) => {
                                 if (timeSlotFromThisGroup.eventId.equals(req.params.eventId)){
                                     // il a déjà une réservation dans la soutenance 
                                     console.log("entré")
-                                    allStudentsWithoutBookingOnEvent.filter(studentOfArray => studentOfArray._id != student._id)
+                                    allStudentsWithoutBookingOnEvent.filter(studentOfArray => !studentOfArray._id.equals(student._id))
                                     /*allStudentsWithoutBookingOnEvent.filter(function(value, index, arr){
 
                                         console.log(value._id)
