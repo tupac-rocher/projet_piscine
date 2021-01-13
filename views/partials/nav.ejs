@@ -2,7 +2,7 @@
 <header>
     <div class="container-fluid shadow bg-white rounded navigationbar">
         <div class="row">
-            <div class="col d-flex align-items-center">
+            <div class="col-4 col-lg-2 d-flex align-items-center">
                 <% if(locals.user) {%>
                 <a class="navbar-brand" href="/evenements">
                         <img src="/logo.png" height="50" alt="" loading="lazy">
@@ -14,9 +14,8 @@
                 <% } %>
             </div>
             <div class="col">
-                <div class="row">
-                    <div class="d-xl-block col-xl-1"></div>
-                    <div class="d-md-block col-md-4 col-lg-6 col-xl-6"></div>
+                <div class="row justify-content-end">
+                    <div class="d-none d-md-flex col-md-3 col-xl-4"></div>
                     <% if (locals.user) {%>
                         <% if (typeof user.adminPseudo != "undefined") {%>
                         <div class="col my-3 d-flex justify-content-end flex-nowrap">
@@ -33,11 +32,14 @@
                             <a id="connectbuttonhref" href="/logout">Déconnexion</a>
                         </div>
                     <% } else{ %>
-                    <div class="col my-3">
+                    <div class="col-4 col-md-3 col-lg-2 my-3 d-flex justify-content-end">
                         <a id="connectbuttonhref" href="/login">Connexion Etudiant</a>
                     </div>
-                    <div class="col my-3">
+                    <div class="col-4 col-md-3 col-lg-2 my-3 d-flex justify-content-end">
                         <a id="connectbuttonhref" href="/loginAdmin">Connexion Administrateur</a>
+                    </div>
+                    <div class="col-4 col-md-3 col-lg-2 my-3 d-flex justify-content-start">
+                        <a id="connectbuttonhref" href="/signUp">Inscription </a>
                     </div>
                     <%}%>
                 </div>

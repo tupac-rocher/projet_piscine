@@ -4,22 +4,19 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
 
 <title>Vue Evénements</title>
-<link rel="stylesheet" href="/nav.css">
 </head>
 <body>
 <%- include ('./partials/nav') %>
 
 <div class="container-fluid content">
+    <div class="row"><a href="/reserver/<%- eventId%>" class="btn btn-info" role="button">Faire une réservation</a></div>
     <div class="row">
         <div class="col-md-6 col-xl-8 d-none d-md-flex"></div>
-<% if (locals.user) {%>
-    <% if (typeof user.adminPseudo != "undefined") {%>
+        <% if (typeof user.adminPseudo != "undefined") { %>
         <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-end">
             <a class="btn btn-primary smallButton" href="/evenements/editer-evenement/<%- event._id %>" role="button"><p><i class="fas fa-edit" title="Editer"></i> Editer</p></a>
         </div>
-    <% } else{ %>
-        <div class="row"><a href="/reserver/<%- eventId%>" class="btn btn-info" role="button">Faire une réservation</a></div>
-    <%}%>
+        <%}%>
         <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-start">
             <a class="btn btn-primary smallButton download" href="#" role="button" title="Télécharger format PDF" onclick="ExportPdf()"><p><i class="fas fa-download"></i> Télécharger format PDF</p></a>
         </div>
