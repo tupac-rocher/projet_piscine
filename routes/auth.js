@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken')
 
 router.get('/login', (req, res) => {
     //Authenticating user
-    res.render('login')
+    res.render('login', { title: 'login'})
 })
 
 router.get('/logout', async (req, res) => {
@@ -69,7 +69,7 @@ router.post('/login', async (req,res) =>{
 
 // SignUp route
 router.get('/signUp', (req,res) =>{
-    res.render('signUp.ejs')
+    res.render('signUp', { title: 'singUp'})
 })
 router.post('/signUp', async (req,res) =>{
     try{

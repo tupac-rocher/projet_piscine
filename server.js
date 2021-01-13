@@ -39,7 +39,7 @@ app.set('view engine', 'ejs')
 const evenementController = require('./controller/eventController')
 app.route('/')
     .get( function(req, res){
-        res.render('login')
+        res.render('login', {title: 'login'})
     } )
 
 

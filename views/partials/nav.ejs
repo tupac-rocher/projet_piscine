@@ -15,7 +15,7 @@
             </div>
             <div class="col">
                 <div class="row justify-content-end">
-                    <div class="d-none d-md-flex col-md-2 col-lg-3"></div>
+                    <div class="d-none d-md-flex col-md-2 col-lg-8"></div>
                     <% if (locals.user) {%>
                         <% if (typeof user.adminPseudo != "undefined") {%>
                         <div class="col my-3 d-flex justify-content-end flex-nowrap">
@@ -29,20 +29,21 @@
                         <%}%>
                         <!-- afficher lorsqu'on est connecté -->
                         <div class="col my-3 ">
-                            <a id="connectbuttonhref" href="/logout">Déconnexion</a>
+                            <a id="disconnectbuttonhref" href="/logout">Déconnexion</a>
                         </div>
                     <% } else{ %>
-                    <div class="col-4 col-md-3 col-lg-3 my-3 d-flex justify-content-center">
-                        <a id="connectbuttonhref" href="/login">Connexion Etudiant</a>
-                    </div>
-                    <div class="col-4 col-md-3 col-lg-3 my-3 d-flex justify-content-center">
-                        <a id="connectbuttonhref" href="/loginAdmin">Connexion Administrateur</a>
-                    </div>
-                    <div class="col-4 col-md-3 col-lg-3 my-3 d-flex justify-content-center">
-                        <a id="connectbuttonhref" href="/signUp">Inscription </a>
+                    
+                    <div class="col-4 col-md-3 col-lg-2 my-3 d-flex justify-content-center">
+                    <% if( title == "login") { %>
+                        <a id="signupbuttonhref" href="/signUp">Inscription</a>
+                    <% } else { %>
+                        <a id="connectbuttonhref" href="/login">Connexion</a>
+                        
+                    <% } %>
+
                     </div>
                     <div class="d-none d-lg-flex col"></div>
-                    <%}%>
+                    <% } %>
                 </div>
             </div>
         </div>
