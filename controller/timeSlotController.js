@@ -20,14 +20,11 @@ const createTimeSlot_get = async (req, res) => {
                                 let timeSlotFromThisGroup = await timeSlot.findOne({ groupId : group._id })
                                 if (timeSlotFromThisGroup.eventId.equals(req.params.eventId)){
                                     // il a déjà une réservation dans la soutenance 
-                                    console.log("entré")
-                                    allStudentsWithoutBookingOnEvent.filter(studentOfArray => !studentOfArray._id.equals(student._id))
-                                    /*allStudentsWithoutBookingOnEvent.filter(function(value, index, arr){
-
-                                        console.log(value._id)
-                                        console.log(student._id)
-                                        return value
-                                    })*/
+                                    console.log("entré", allStudentsWithoutBookingOnEvent)
+                                    console.log("id perso", student._id.toString())
+                                    console.log("grande liste", allStudents[0]._id.toString())
+                                    allStudentsWithoutBookingOnEvent.filter(studentOfArray => studentOfArray.studentLastName == 'Arlert')
+                                    console.log("après filter", allStudentsWithoutBookingOnEvent)
                                 } 
                             } catch (err) {
                                 console.log(err)

@@ -16,12 +16,18 @@
           <div class="col-md-4">
             <div class="col my-4">
               <% if (eventInfo.timeSlotDuration == '01:00') {%>
-                <label for="tutorLastName">Nom du tuteur entreprise</label>
-                <input type="text" id="tutorLastName" name="tutorLastName">
-                <label for="tutorFirstName">Prénom du tuteur entreprise</label>
-                <input type="text" id="tutorFirstName" name="tutorFirstName">
-                <label for="companyName">Nom de l'entreprise</label>
-                <input type="text" id="companyName" name="companyName">
+                <div class="row">
+                  <label for="tutorLastName">Nom du tuteur entreprise</label>
+                  <input type="text" id="tutorLastName" name="tutorLastName">
+                </div>
+                <div class="row">
+                  <label for="tutorFirstName">Prénom du tuteur entreprise</label>
+                  <input type="text" id="tutorFirstName" name="tutorFirstName">
+                </div>
+                <div class="row">
+                  <label for="companyName">Nom de l'entreprise</label>
+                  <input type="text" id="companyName" name="companyName">
+                </div>
               <% } else {%>
             <ul class="list-group">
               <% for(var student of allStudents) {  %>

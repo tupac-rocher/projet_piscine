@@ -130,6 +130,7 @@ const eventById = (req, res) => {
             }
             // Check if id, schoolyear of event are the same from the student logged in,  (à mettre dans le middlewaare ?)
             let authorizedToBook = true
+            let rightSchoolYear = true
             if (typeof req.user.adminPseudo != "undefined"){
                 authorizedToBook = false
             }
@@ -137,6 +138,7 @@ const eventById = (req, res) => {
                 const studentLoggedIn = await student.findById(req.user._id)
                  if (result.schoolYearId != req.user.schoolYearId){
                     authorizedToBook = false
+                    rightSchoolYear = false
                 } else if (studentLoggedIn.groupsId.length != 0){
                     try{
                         const groupsOfStudent = await group.find({ studentsId : studentLoggedIn._id })
@@ -192,7 +194,7 @@ const eventById = (req, res) => {
                 }
             }
             //res.json(result)
-            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook})
+            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId,rightSchoolYear: rightSchoolYear, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook})
         })
         .catch(err => {
             console.log(err);
