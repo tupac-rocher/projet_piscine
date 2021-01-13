@@ -17,6 +17,7 @@
 <body>
 <%- include ('./partials/nav') %>
 <% if (typeof user.adminPseudo == "undefined"){%>
+    <p>Il vous reste <%- daysLeftToBook %> jours pour réserver</p>
     <% if (authorizedToBook) { %>
     <a href="/reserver/<%- eventId%>" class="btn btn-info mt-5 ml-5" role="button">Faire une réservation</a>
     <% } %>

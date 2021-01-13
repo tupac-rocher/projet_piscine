@@ -2,6 +2,7 @@ const event = require('../models/eventModel')
 const group = require('../models/groupModel')
 const schoolYear = require('../models/schoolYearModel')
 const timeSlot = require('../models/timeSlotModel')
+const student = require('../models/studentModel')
 
     // a and b are javascript Date objects
 function dateDiffInDays(a, b) {
@@ -125,18 +126,18 @@ const eventById = (req, res) => {
         .then(async (result) => {
             console.log(result)
             // Check number of days left to book
-            let daysLeftToBook = dateDiffInDays(new Date(result.maximumLimitDate), Date.now())
+            let daysLeftToBook = dateDiffInDays(new Date(result.maximumLimitDate), new Date(Date.now()))
             if (daysLeftToBook <= 0) {
                 datysLeftToBook = 0
             }
             // Check if id of event is the same from the student logged in
             let authorizedToBook = true
-            if (typeof user.adminPseudo != "undefined"){
+            if (typeof req.user.adminPseudo != "undefined"){
                 authorizedToBook = false
             }
             else {
                 const studentLoggedIn = await student.findById(req.user._id)
-                 if (result.schoolYearId != user.schoolYearId){
+                 if (result.schoolYearId != req.user.schoolYearId){
                     authorizedToBook = false
                 } else if (studentLoggedIn.groupsId.length != 0){
                     const groupsOfStudent = await group.find({ studentsId : studentLoggedIn._id })
@@ -176,7 +177,7 @@ const eventById = (req, res) => {
                 arrayOfTimeSlots.push(timeSlotToAdd)
             }
             //res.json(result)
-            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId, authorizedToBook : authorizedToBook, daysLeftToBooked :daysLeftToBook})
+            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook})
         })
         .catch(err => {
             console.log(err);
