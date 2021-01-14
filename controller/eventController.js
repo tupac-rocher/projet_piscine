@@ -119,14 +119,26 @@ const deleteEvent_admin_delete = async (req, res) => {
 
     for (const timeslot of timeSlotToDelete){
          GroupToDelete = await group.findOne({timeSlotId : timeslot._id })
+         console.log("groupetodelte",GroupToDelete)
          listofStudents = await student.find({groupsId : GroupToDelete._id})
+         console.log("listofstudents",listofStudents)
         for (const Student of listofStudents){
+            console.log("students",Student)
             var ListOfGroup = Student.groupsId
             console.log('avant',ListOfGroup)
             console.log(GroupToDelete)
-            ListOfGroup = ListOfGroup.filter(group => group._id !== GroupToDelete._id )
-            console.log('apres',ListOfGroup)
-            await student.findByIdAndUpdate(Student._id,{groupsId : ListOfGroup})
+
+            var ListOfGroupUpdated = []
+            for (const group of ListOfGroup) {
+                if ((""+group._id) != (""+GroupToDelete._id)) {
+                    ListOfGroupUpdated.push(group._id)
+                    console.log(ListOfGroupUpdated)
+                }
+            }
+            //ListOfGroupUpdated = ListOfGroup.filter(group => group._id != GroupToDelete._id )
+
+            console.log('apres',ListOfGroupUpdated)
+            await student.findByIdAndUpdate(Student._id,{groupsId : ListOfGroupUpdated})
         }
         await group.findByIdAndDelete(GroupToDelete._id)
 
