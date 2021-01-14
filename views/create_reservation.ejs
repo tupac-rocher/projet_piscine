@@ -7,14 +7,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <title>Soutenance | Création de réservation étudiant</title>
+    <style>
+      .maxsize {
+        max-width: 200px;
+      }
+      .maxsize2 {
+        max-width: 350px;
+      }
+    </style>
   </head>
   <body>
     <%- include ('./partials/nav') %>
+    
     <form method="POST" action="/reserver/<%- eventInfo._id %>">
-      <div class="container-fluid my-5 content ">
+      <div class="container my-5">
         <div class="row">
-          <div class="col-md-4">
-            <div class="col my-4">
+          <div class="col-4 maxsize2">
               <% if (eventInfo.timeSlotDuration == '01:00') {%>
                 <div class="row">
                   <label for="tutorLastName">Nom du tuteur entreprise</label>
@@ -45,22 +53,41 @@
               <%}%>
               </ul>
               <% } %>
-              </div> 
           </div>
-          <div class="col my-5">
-            <label for="start">Date de début:</label>
-            <input type="date" id="start" name="date"
-                value="current"
-                min="<%- minDate %>" max="<%- maxDate %>">
-            <label for="classroom">Numéro de la salle</label>
-            <input type="number" id="classroom" name="classroom">
+          <div class="col-4 ">
+            <div class="row d-flex justify-content-center">
+              <label class="text-center" for="start">Date de début:</label>
+              <input class="maxsize" type="date" id="start" name="date"
+                  value="current"
+                  min="<%- minDate %>" max="<%- maxDate %>">
+            </div>
+            <div class="row d-flex justify-content-center ">
+              <label class="text-center" for="classroom">Numéro de la salle:</label>
+              <input class="maxsize" type="number" id="classroom" name="classroom">
+            </div>
           </div>
-          <div class="col-3 align-self-end">
-                <label for="startingTime">Heure de début:</label>
-                <input type="time" id="startingTime" name="startingTime" min="08:00" max="19:00">
-                <button type="submit" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Réserver</button>
+          <div class="col-4">
+            <div class="row text-center">
+              <label for="startingTime">Heure de début:</label>
+            </div>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col d-flex justify-content-center">
+                <input class="maxsize" type="time" id="startingTime" name="startingTime" min="08:00" max="19:00">
               </div>
-        </div>    
+              <div class="col"></div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row my-3">
+          <div class="col d-none d-sm-flex"></div>
+          <div class="col col-sm-1 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Réserver</button>
+          </div>
+          <div class="col-1 d-none d-sm-flex"></div>
+        </div>
+
       </div>
     </form>
   </body>

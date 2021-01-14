@@ -19,24 +19,34 @@
 <% if (typeof user.adminPseudo == "undefined"){%>
     <% if (rightSchoolYear) { %>
         <% if (authorizedToBook) { %>
-            <p>Il vous reste <%- daysLeftToBook %> jours pour réserver</p>
-        <a href="/reserver/<%- eventId %>" class="btn btn-info mt-5 ml-5" role="button">Faire une réservation</a>
+            <div class="container">
+                <p class="my-2 h5 ml-3 d-flex justify-content-center d-sm-block">Il vous reste <%- daysLeftToBook %> jours pour réserver</p>
+            </div>
+
+       <div class="container content">
+           <div class="row">
+               <div class="col mx-0 d-flex justify-content-start">
+                <a href="/reserver/<%- eventId %>" class="btn btn-primary mt-5" role="button">Faire une réservation</a>
+               </div> 
+           </div>
+       </div>
+
         <% } else if (daysLeftToBook == 0){ %>
-            <p>Les réservations sont terminées</p>
+            <p class="my-2 h5 ml-3 d-flex justify-content-center d-sm-block">Les réservations sont terminées</p>
         <% } else { %>
             <a class="btn btn-primary"href="/reserver/editer/<%- event._id %>/<%- TheTimeSlot._id%>" role="button"><i class="fas fa-plus"></i>Modifier réservation</a>
         <%}%>
     <% } %>
 <%}%>
-<div class="container-fluid content">
-    <div class="row">
+<div class="container content mt-2">
+    <div class="row mb-3">
         <div class="col-md-6 col-xl-8 d-none d-md-flex"></div>
         <% if (typeof user.adminPseudo != "undefined") { %>
         <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-end">
             <a class="btn btn-primary smallButton" href="/evenements/editer-evenement/<%- event._id %>" role="button"><p><i class="fas fa-edit" title="Editer"></i> Editer</p></a>
         </div>
         <%}%>
-        <div class="col-6 col-md-3 col-xl-2 d-flex justify-content-center justify-content-lg-start">
+        <div class="col d-flex justify-content-end">
             <a class="btn btn-primary smallButton download" href="#" role="button" title="Télécharger format PDF" onclick="ExportPdf()"><p><i class="fas fa-download"></i> Télécharger format PDF</p></a>
         </div>
     </div>
@@ -46,7 +56,7 @@
         <div class="col d-flex justify-content-center noPadding">
             <div class="count rounded">
                 <h2><%- event.eventName %></h2>
-                <p>Nombre de réservation : <%- event.timeSlots.length %></p>
+                <p class="text-center">Nombre de réservation : <%- event.timeSlots.length %></p>
             </div>
         </div>
     </div>

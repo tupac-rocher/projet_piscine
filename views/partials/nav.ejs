@@ -2,7 +2,7 @@
 <header>
     <div class="container-fluid shadow bg-white rounded navigationbar">
         <div class="row">
-            <div class="col d-flex align-items-center">
+            <div class="col-4 d-flex align-items-center">
                 <% if(locals.user) {%>
                 <a class="navbar-brand" href="/evenements">
                         <img src="/logo.png" height="50" alt="" loading="lazy">
@@ -15,12 +15,11 @@
             </div>
             <div class="col">
                 <div class="row">
-                    <div class="d-xl-block col-xl-1"></div>
-                    <div class="d-md-block col-md-4 col-lg-6 col-xl-6"></div>
+                    <div class="col col-md-4 col-lg-6 col-xl-6"></div>
                     <% if (locals.user) {%>
                         <% if (typeof user.adminPseudo != "undefined") {%>
                         <div class="col my-3 d-flex justify-content-end flex-nowrap">
-                            <p>Administrateur</p>
+                            <p>Admin</p>
                         </div>
                         <% } else{ %>
                         <!-- afficher le nom de l'utilisateur ou "Admin" lorsqu'on est connecté -->
@@ -33,7 +32,7 @@
                             <a id="connectbuttonhref" href="/logout">Déconnexion</a>
                         </div>
                     <% } else{ %>
-                    <div class="col my-3">
+                    <div class="col my-3 d-flex justify-content-end align-items-center">
                         <a id="connectbuttonhref" href="/signUp"><button type="button" class="btn btn-outline-primary">Inscription</button></a>
                     </div>
                         <% if (locals.title) { %>

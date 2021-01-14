@@ -10,127 +10,131 @@
   </head>
   <body>
   <%- include ('./partials/nav') %>
-  <form method="POST" action="/evenements/editer-evenement/<%- event._id %>">
-    <div class="container-fluid my-5 content ">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="row d-flex flex-column">
-          <div class="col my-2">
-          <label for="site-search">Titre</label>
-                <input type="search" id="site-search" name="eventName" value=<%=event.eventName %> onfocus="this.value=''"
-                    aria-label="Search through site content">
-          </div>
-         <div class="col my-2"> 
-                <p>Promo</p>
-                <div class="row">
-                  <div class="col-4">
-                  <input type="radio" id="IG3" name="schoolYear" value="IG3" <%=IG3 %> > 
-                  </div>
-                  <div class="col-4">
-                  <label for="IG3">IG3</label>
-                  </div>
-                </div>
-                
-                <div class="row">
-                  <div class="col-4">
-                  <input type="radio" id="IG4" name="schoolYear" value="IG4" <%=IG4 %>>
-                  </div>
-                  <div class="col-4">
-                  <label for="IG4">IG4</label>
-                  </div>
-                </div>
-                
-                <div class="row">
-                  <div class="col-4">
-                  <input type="radio" id="IG5" name="schoolYear" value="IG5" <%=IG5 %>>
-                  </div>
-                  <div class="col-4">
-                  <label for="IG5">IG5</label>
+  <div class="container">
+    <form method="POST" action="/evenements/editer-evenement/<%- event._id %>">
+      <div class="container-fluid my-5 content ">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row d-flex flex-column">
+            <div class="col my-2">
+            <label for="site-search">Titre</label>
+                  <input type="search" id="site-search" name="eventName" value=<%=event.eventName %> onfocus="this.value=''"
+                      aria-label="Search through site content">
+            </div>
+           <div class="col my-2"> 
+                  <p>Promo</p>
+                  <div class="row">
+                    <div class="col-4">
+                    <input type="radio" id="IG3" name="schoolYear" value="IG3" <%=IG3 %> > 
+                    </div>
+                    <div class="col-4">
+                    <label for="IG3">IG3</label>
                     </div>
                   </div>
+                  
+                  <div class="row">
+                    <div class="col-4">
+                    <input type="radio" id="IG4" name="schoolYear" value="IG4" <%=IG4 %>>
+                    </div>
+                    <div class="col-4">
+                    <label for="IG4">IG4</label>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-4">
+                    <input type="radio" id="IG5" name="schoolYear" value="IG5" <%=IG5 %>>
+                    </div>
+                    <div class="col-4">
+                    <label for="IG5">IG5</label>
+                      </div>
+                    </div>
+              </div>
+              <div class="col my-2">
+                  <p> Type </p>
+                  <div class="row">
+                    <div class="col-4">
+                    <input type="radio" id="Projet" name="type" value="Projet"
+                           <%=Projet %>>
+                           </div>
+                    <div class="col-4">
+                    <label for="Projet">Projet</label>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-4">
+                    <input type="radio" id="Stage" name="type" value="Stage" <%=Stage %>>
+                    </div>
+                    <div class="col-4">
+                    <label for="Stage">Stage</label>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                  
+          </div>
+          <div class="col-md-4"> 
+            <div class="row d-flex flex-column">
+              <div class="col my-5 d-flex jusify-content-center">
+                  <label for="start">Date de début:</label>
+  
+                  <input type="date" id="start" name="startingDate"
+                      value=<%=startingDate %>
+                      min="2021-01-01" max="2025-12-31">
+              </div>
+              <div class="col my-5">
+                      <label for="start">Date de fin:</label>
+  
+                      <input type="date" id="start" name="finishDate"
+                          value=<%=endDate %>
+                          min="2021-01-01" max="2025-12-31">
+              </div>
+              <div class="col my-5">
+                  <label for="start">Date maximal pour réserver</label>
+  
+                  <input type="date" id="start" name="maximumLimitDate"
+                      value=<%=maximumLimitDate %>
+                      min="2021-01-01" max="2025-12-31">
+          </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+          <div class="row d-flex flex-column">
+            <div class="col my-2"> 
+            <p> Salle(s) réservée(s)</p>
+              <ul class="list-group">
+              <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                Salle 05
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                Salle 28
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                Salle 102
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                Salle TP3
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                Salle TP4
+              </li>
+            </ul>
             </div>
             <div class="col my-2">
-                <p> Type </p>
-                <div class="row">
-                  <div class="col-4">
-                  <input type="radio" id="Projet" name="type" value="Projet"
-                         <%=Projet %>>
-                         </div>
-                  <div class="col-4">
-                  <label for="Projet">Projet</label>
-                  </div>
-                </div>
-                
-                <div class="row">
-                  <div class="col-4">
-                  <input type="radio" id="Stage" name="type" value="Stage" <%=Stage %>>
-                  </div>
-                  <div class="col-4">
-                  <label for="Stage">Stage</label>
-                  </div>
-                  </div>
-                </div>
-              </div>
-                
-        </div>
-        <div class="col-md-4"> 
-          <div class="row d-flex flex-column">
-            <div class="col my-5">
-                <label for="start">Date de début:</label>
-
-                <input type="date" id="start" name="startingDate"
-                    value=<%=startingDate %>
-                    min="2021-01-01" max="2025-12-31">
+            <button type="submit" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Editer l'évènement</button>
             </div>
-            <div class="col my-5">
-                    <label for="start">Date de fin:</label>
+          </div>
+          </div>
+      </div>
+  </form>
 
-                    <input type="date" id="start" name="finishDate"
-                        value=<%=endDate %>
-                        min="2021-01-01" max="2025-12-31">
-            </div>
-            <div class="col my-5">
-                <label for="start">Date maximal pour réserver</label>
-
-                <input type="date" id="start" name="maximumLimitDate"
-                    value=<%=maximumLimitDate %>
-                    min="2021-01-01" max="2025-12-31">
-        </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-        <div class="row d-flex flex-column">
-          <div class="col my-2"> 
-          <p> Salle(s) réservée(s)</p>
-            <ul class="list-group">
-            <li class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-              Salle 05
-            </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-              Salle 28
-            </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-              Salle 102
-            </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-              Salle TP3
-            </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-              Salle TP4
-            </li>
-          </ul>
-          </div>
-          <div class="col my-2">
-          <button type="submit" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Editer l'évènement</button>
-          </div>
-        </div>
-        </div>
-    </div>
-</form>
+  </div>
+  
   </body>
 </html>
