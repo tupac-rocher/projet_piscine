@@ -234,8 +234,24 @@ const eventById = (req, res) => {
                     console.log(err)
                 }
             }
+         
+            console.log("yo")
+             studentForEditReservation = await student.findById(req.user._id)
+
+            GroupsOfStudents = studentForEditReservation.groupsId
+            allTimeSlot = await timeSlot.find({eventId : req.params.eventId})
+            TheTimeSlot = await timeSlot.findOne({ groupId : { $in : GroupsOfStudents }})
+          console.log(studentForEditReservation)
+          console.log(allTimeSlot)  
+          console.log('thetimeSlot',TheTimeSlot)
+    
+
+
+
+            
+        
             //res.json(result)
-            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId,rightSchoolYear: rightSchoolYear, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook})
+            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId,rightSchoolYear: rightSchoolYear, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook, TheTimeSlot : TheTimeSlot})
         })
         .catch(err => {
             console.log(err);

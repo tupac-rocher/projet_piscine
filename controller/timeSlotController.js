@@ -212,16 +212,16 @@ const editTimeSlot_post = async (req, res) => {
 
         // Should return saved doc here
         const newTimeSlot = {
-          groupId : savedGroup._id,
+          groupId : currentGroup._id,
           date : req.body.date,
           startingTime : req.body.startingTime,
           classroom : new Number(req.body.classroom),
           eventId: req.params.eventId
         }
-        await timeslot.findByIdAndUpdate(currentTimeslot._id,newTimeSlot)
+        await timeSlot.findByIdAndUpdate(currentTimeslot._id,newTimeSlot)
                 
               
-        for (const studentId of result.studentsId) {
+        for (const studentId of newGroup.studentsId) {
             try {
                 await student.findByIdAndUpdate(studentId, { $push : { groupsId : {_id : currentGroup._id } }})
             } catch (err) {
