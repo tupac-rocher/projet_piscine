@@ -3,6 +3,7 @@ const group = require('../models/groupModel')
 const schoolYear = require('../models/schoolYearModel')
 const timeSlot = require('../models/timeSlotModel')
 const student = require('../models/studentModel')
+const { Mongoose, isValidObjectId } = require('mongoose')
 
     // a and b are javascript Date objects
 function dateDiffInDays(a, b) {
@@ -121,6 +122,10 @@ const deleteEvent_admin_delete = (req, res) => {
 }
 
 const eventById = (req, res) => {
+    // Check params
+    if (!isValidObjectId(req.params.eventId)){
+        res.redirect('/evenements')
+    }
     event.findById(req.params.eventId)
         .then(async (result) => {
             // Check number of days left to book
@@ -202,6 +207,10 @@ const eventById = (req, res) => {
 }
 
 const eventByIdEdit = (req, res) => {
+    // Check params
+    if (!isValidObjectId(req.params.eventId)){
+        res.redirect('/evenements')
+    }
     console.log('Before request',req.params)
     event.findById(req.params.eventId)
         .then(result => {

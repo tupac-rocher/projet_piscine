@@ -4,6 +4,10 @@ const event = require('../models/eventModel')
 const student = require('../models/studentModel')
 const { copy } = require('../routes/eventsRoute')
 const createTimeSlot_get = async (req, res) => {
+    // Check params
+    if (!isValidObjectId(req.params.eventId)){
+        res.redirect('/evenements')
+    }
     const currentEvent = await event.findById(req.params.eventId)
     let allStudentsWithoutBookingOnEvent = []
     if (currentEvent.timeSlotDuration == "01:30"){
@@ -23,9 +27,9 @@ const createTimeSlot_get = async (req, res) => {
                                     console.log("entré", allStudentsWithoutBookingOnEvent)
                                     console.log("id perso", student._id.toString())
                                     console.log("grande liste", allStudents[0]._id.toString())
-                                    allStudentsWithoutBookingOnEvent.filter(studentOfArray => studentOfArray.studentLastName == 'Arlert')
+                                    allStudentsWithoutBookingOnEvent = allStudentsWithoutBookingOnEvent.filter(studentOfArray => studentOfArray._id != student._id)
                                     console.log("après filter", allStudentsWithoutBookingOnEvent)
-                                } 
+                                }
                             } catch (err) {
                                 console.log(err)
                             }
