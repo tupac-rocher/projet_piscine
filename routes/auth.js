@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 router.get('/loginAdmin', (req, res) => {
-    res.render('loginAdmin')
+    res.render('loginAdmin', { title : "loginAdmin"})
 })
 router.post('/loginAdmin', async (req,res) =>{
     //Recherche de l'étudiant dans la base de données
@@ -40,13 +40,13 @@ router.post('/loginAdmin', async (req,res) =>{
 
 router.get('/logout', async (req, res) => {
     res.cookie('jwt',"", {maxAge: 0})
-    res.redirect('/login')
+    res.redirect('/login', { title : "login"})
 })
 
 // SignIn route
 router.get('/login', (req, res) =>{
     // Authentication User
-    res.render('login')
+    res.render('login', { title : "login"})
 })
 router.post('/login', async (req,res) =>{
     //Recherche de l'étudiant dans la base de données
@@ -74,7 +74,7 @@ router.post('/login', async (req,res) =>{
 
 // SignUp route
 router.get('/signUp', (req,res) =>{
-    res.render('signUp.ejs')
+    res.render('signUp', { title : "signup"})
 })
 router.post('/signUp', async (req,res) =>{
     try{
