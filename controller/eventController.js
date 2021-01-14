@@ -293,7 +293,7 @@ const eventByIdEdit = (req, res) => {
             // Construction projet / Stage 
             Projet = result.timeSlotDuration == "01:30"? Projet = "checked" : Projet = ""
             Stage = result.timeSlotDuration == "01:00" ? Stage = "checked" : Stage = ""
-            res.render('admin_edit_event', {event : result,endDate :endDate, maximumLimitDate : maximumLimitDate ,startingDate : startingDate ,IG3 : IG3 ,IG4 : IG4 ,IG5 : IG5 ,Stage : Stage,Projet : Projet})
+            res.render('admin_edit_event', {event : result,endDate :endDate, maximumLimitDate : maximumLimitDate , user : req.user, startingDate : startingDate ,IG3 : IG3 ,IG4 : IG4 ,IG5 : IG5 ,Stage : Stage,Projet : Projet})
         })
         .catch(err => {
             console.log(err);

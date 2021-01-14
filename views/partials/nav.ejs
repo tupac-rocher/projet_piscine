@@ -36,15 +36,17 @@
                     <div class="col my-3">
                         <a id="connectbuttonhref" href="/signUp"><button type="button" class="btn btn-outline-primary">Inscription</button></a>
                     </div>
-                        <% if (title == "login") { %>
-                        <div class="col my-3">
-                            <a id="connectbuttonhref" href="/loginAdmin"><button type="button" class="btn btn-outline-secondary">Connexion administrateur</button></a>
-                        </div>
-                        <% } else { %>
+                        <% if (locals.title) { %>
+                            <% if (title == "login") {%>
                             <div class="col my-3">
-                                <a id="connectbuttonhref" href="/login"><button type="button" class="btn btn-outline-secondary">Connexion étudiant</button></a>
+                                <a id="connectbuttonhref" href="/loginAdmin"><button type="button" class="btn btn-outline-secondary">Connexion administrateur</button></a>
                             </div>
-                        <% } %>
+                            <% } else { %>
+                                <div class="col my-3">
+                                    <a id="connectbuttonhref" href="/login"><button type="button" class="btn btn-outline-secondary">Connexion étudiant</button></a>
+                                </div>
+                            <% } %>
+                        <%}%>
                     <%}%>
                 </div>
             </div>
