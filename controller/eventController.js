@@ -89,7 +89,7 @@ const editEvent_admin_post = async (req, res) => {
         numberOfTeachers = 3
         eventName = eventName + ' - Stage('+schoolYearObject.schoolYear+')'
     }
-    const newEvent = new event({
+    const newEvent = {
     eventName : eventName,
     startingDate : req.body.startingDate,
     duration : duration,
@@ -97,28 +97,52 @@ const editEvent_admin_post = async (req, res) => {
     timeSlotDuration : timeSlotDuration,
     numberOfTeachers : numberOfTeachers,
     schoolYearId : schoolYearObject._id
-    })
+    }
     _id = req.params.eventId
     console.log(newEvent)
     try{
         
-        event.findByIdAndUpdate({_id:_id},newEvent)
+        await event.findByIdAndUpdate(_id,newEvent).then(result =>{
+            res.redirect('/evenements')
+        })
 
     } catch(err){
         console.log(err)
     }
 }
 
-const deleteEvent_admin_delete = (req, res) => {
+const deleteEvent_admin_delete = async (req, res) => {
+    console.log("je fais ce que l'on me demmande ")
     console.log(req.params.eventId)
-    event.findByIdAndDelete(req.params.eventId)
+
+    timeSlotToDelete = await timeSlot.find({eventId:req.params.eventId})
+
+    for (const timeslot of timeSlotToDelete){
+         GroupToDelete = await group.findOne({timeSlotId : timeslot._id })
+         listofStudents = await student.find({groupsId : GroupToDelete._id})
+        for (const Student of listofStudents){
+            var ListOfGroup = Student.groupsId
+            console.log('avant',ListOfGroup)
+            console.log(GroupToDelete)
+            ListOfGroup = ListOfGroup.filter(group => group._id !== GroupToDelete._id )
+            console.log('apres',ListOfGroup)
+            await student.findByIdAndUpdate(Student._id,{groupsId : ListOfGroup})
+        }
+        await group.findByIdAndDelete(GroupToDelete._id)
+
+
+    }
+    await timeSlot.deleteMany({ eventId: req.params.eventId })
+    await event.findByIdAndDelete(req.params.eventId)
+
         .then(result => {
-            res.redirect('all_events')
+
+            res.redirect('/evenements')
         })
         .catch(err => {
             console.log(err);
         })
-    
+
 }
 
 const eventById = (req, res) => {
@@ -238,8 +262,8 @@ const eventByIdEdit = (req, res) => {
             IG4 = result.schoolYearId == "5feb7806b2c296d338c8fdfc" ? IG4 = "checked" : IG4 = ""
             IG5 = result.schoolYearId == "5feb781eb2c296d338c8fdfd" ? IG5 = "checked" : IG5 = ""
             // Construction projet / Stage 
-            Projet = result.timeSlotDuration == 1.5 ? Projet = "checked" : Projet = ""
-            Stage = result.timeSlotDuration == 1 ? Stage = "checked" : Stage = ""
+            Projet = result.timeSlotDuration == "01:30"? Projet = "checked" : Projet = ""
+            Stage = result.timeSlotDuration == "01:00" ? Stage = "checked" : Stage = ""
             res.render('admin_edit_event', {event : result,endDate :endDate, maximumLimitDate : maximumLimitDate ,startingDate : startingDate ,IG3 : IG3 ,IG4 : IG4 ,IG5 : IG5 ,Stage : Stage,Projet : Projet})
         })
         .catch(err => {

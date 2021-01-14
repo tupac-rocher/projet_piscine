@@ -17,10 +17,14 @@ router.route('/editer-evenement/:eventId')
     .get(eventController.eventByIdEdit)
     .post(eventController.editEvent_admin_post)
 
+router.route('/supprimer/:eventId')
+    .all(authMiddleware.authenticateTokenAdmin)
+    .get(eventController.deleteEvent_admin_delete)
+
 router.route('/:eventId')
     .all(authMiddleware.authenticateToken)
     .get(eventController.eventById)
-    .delete(eventController.deleteEvent_admin_delete)
+    .delete(eventController.deleteEvent_admin_delete) 
 
 
 

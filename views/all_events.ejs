@@ -12,6 +12,20 @@
             <% if (locals.user && typeof user.adminPseudo != "undefined") { %>
             <div class="row my-4">
                 <a class="btn btn-primary"href="/evenements/ajouter-evenement" role="button"><i class="fas fa-plus"></i> Créer évenement</a>
+                <div class = "col-4">
+                    <!-- Example single danger button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Suprimer
+                        </button>
+                        <div class="dropdown-menu">
+                        <% for(var event of allEvents) {  %>
+                            <a class="dropdown-item" href="/evenements/supprimer/<%- event._id %>"><%= event.eventName %></a>
+                        <%};%>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <% }%>
             <div class="list-group">
@@ -37,5 +51,18 @@
         <div class="col d-none d-sm-block"></div>
     </div>
 </div>
+<!--<script>
+    const trashcans = document.querySelectorAll('a.delete')
+    trashcans.forEach(function(deleteButton){
+        deleteButton.addEventListener('click', (e) => {
+        const endpoint = '/evenements/${deleteButton.dataset.doc}';
+        fetch(endpoint, {
+            method: 'DELETE'
+        })
+        .then(( )=>{})
+        .catch(err => console.log(err));
+    })
+    })
 
+</script>-->
 <%- include ('./partials/footer') %>

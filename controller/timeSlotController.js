@@ -3,6 +3,8 @@ const group = require('../models/groupModel')
 const event = require('../models/eventModel')
 const student = require('../models/studentModel')
 const { copy } = require('../routes/eventsRoute')
+const { Mongoose, isValidObjectId } = require('mongoose')
+
 const createTimeSlot_get = async (req, res) => {
     // Check params
     if (!isValidObjectId(req.params.eventId)){
