@@ -14,6 +14,4 @@ router.route('/:eventId')
     .get(timeSlotController.editTimeSlot_get)
     .post(timeSlotController.editTimeSlot_post)
 
-
-
 module.exports = router

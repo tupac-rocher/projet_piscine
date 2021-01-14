@@ -210,25 +210,25 @@ const editTimeSlot_post = async (req, res) => {
     //Update du nouveau groupe
     await group.findOneAndUpdate({timeSlotId : req.params.timeslotId},newGroup)
 
-        // Should return saved doc here
-        const newTimeSlot = {
-          groupId : currentGroup._id,
-          date : req.body.date,
-          startingTime : req.body.startingTime,
-          classroom : new Number(req.body.classroom),
-          eventId: req.params.eventId
+    // Should return saved doc here
+    const newTimeSlot = {
+        groupId : currentGroup._id,
+        date : req.body.date,
+        startingTime : req.body.startingTime,
+        classroom : new Number(req.body.classroom),
+        eventId: req.params.eventId
+    }
+    await timeSlot.findByIdAndUpdate(currentTimeslot._id,newTimeSlot)
+            
+            
+    for (const studentId of newGroup.studentsId) {
+        try {
+            await student.findByIdAndUpdate(studentId, { $push : { groupsId : {_id : currentGroup._id } }})
+        } catch (err) {
+            console.log(err)
         }
-        await timeSlot.findByIdAndUpdate(currentTimeslot._id,newTimeSlot)
-                
-              
-        for (const studentId of newGroup.studentsId) {
-            try {
-                await student.findByIdAndUpdate(studentId, { $push : { groupsId : {_id : currentGroup._id } }})
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        res.redirect('/evenements/'+ req.params.eventId)
+    }
+    res.redirect('/evenements/'+ req.params.eventId)
 
         
          

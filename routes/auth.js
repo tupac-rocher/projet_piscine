@@ -40,7 +40,7 @@ router.post('/loginAdmin', async (req,res) =>{
 
 router.get('/logout', async (req, res) => {
     res.cookie('jwt',"", {maxAge: 0})
-    res.redirect('/login', { title : "login"})
+    res.redirect('/login')
 })
 
 // SignIn route
