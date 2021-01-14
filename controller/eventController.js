@@ -119,14 +119,26 @@ const deleteEvent_admin_delete = async (req, res) => {
 
     for (const timeslot of timeSlotToDelete){
          GroupToDelete = await group.findOne({timeSlotId : timeslot._id })
+         console.log("groupetodelte",GroupToDelete)
          listofStudents = await student.find({groupsId : GroupToDelete._id})
+         console.log("listofstudents",listofStudents)
         for (const Student of listofStudents){
+            console.log("students",Student)
             var ListOfGroup = Student.groupsId
             console.log('avant',ListOfGroup)
             console.log(GroupToDelete)
-            ListOfGroup = ListOfGroup.filter(group => group._id !== GroupToDelete._id )
-            console.log('apres',ListOfGroup)
-            await student.findByIdAndUpdate(Student._id,{groupsId : ListOfGroup})
+
+            var ListOfGroupUpdated = []
+            for (const group of ListOfGroup) {
+                if ((""+group._id) != (""+GroupToDelete._id)) {
+                    ListOfGroupUpdated.push(group._id)
+                    console.log(ListOfGroupUpdated)
+                }
+            }
+            //ListOfGroupUpdated = ListOfGroup.filter(group => group._id != GroupToDelete._id )
+
+            console.log('apres',ListOfGroupUpdated)
+            await student.findByIdAndUpdate(Student._id,{groupsId : ListOfGroupUpdated})
         }
         await group.findByIdAndDelete(GroupToDelete._id)
 
@@ -222,8 +234,24 @@ const eventById = (req, res) => {
                     console.log(err)
                 }
             }
+         
+            console.log("yo")
+             studentForEditReservation = await student.findById(req.user._id)
+
+            GroupsOfStudents = studentForEditReservation.groupsId
+            allTimeSlot = await timeSlot.find({eventId : req.params.eventId})
+            TheTimeSlot = await timeSlot.findOne({ groupId : { $in : GroupsOfStudents }})
+          console.log(studentForEditReservation)
+          console.log(allTimeSlot)  
+          console.log('thetimeSlot',TheTimeSlot)
+    
+
+
+
+            
+        
             //res.json(result)
-            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId,rightSchoolYear: rightSchoolYear, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook})
+            res.render('view_event', {event : result, arrayOfTimeSlots: arrayOfTimeSlots, user: req.user, eventId : req.params.eventId,rightSchoolYear: rightSchoolYear, authorizedToBook : authorizedToBook, daysLeftToBook :daysLeftToBook, TheTimeSlot : TheTimeSlot})
         })
         .catch(err => {
             console.log(err);

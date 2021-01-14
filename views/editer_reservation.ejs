@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <title>Création d'évenement étudiant</title>
+  </head>
+  <body>
+    <%- include ('./partials/nav') %>
+    <form method="POST" action="/reserver/editer/<%-eventInfo._id %>/<%-currentTimeslot._id %>">
+      <div class="container-fluid my-5 content ">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="col my-4">
+              <% if (eventInfo.timeSlotDuration == '01:00') {%>
+                <div class="row">
+                  <label for="tutorLastName">Nom du tuteur entreprise</label>
+                  <input type="text" id="tutorLastName" name="tutorLastName" value=<%=currentGroup.tutorLastName %>  onfocus="this.value=''">
+                </div>
+                <div class="row">
+                  <label for="tutorFirstName">Prénom du tuteur entreprise</label>
+                  <input type="text" id="tutorFirstName" name="tutorFirstName" value=<%=currentGroup.tutorFirstName %>  onfocus="this.value=''">
+                </div>
+                <div class="row">
+                  <label for="companyName">Nom de l'entreprise</label>
+                  <input type="text" id="companyName" name="companyName" value=<%=currentGroup.companyName %>  onfocus="this.value=''">
+                </div>
+              <% } else {%>
+            <ul class="list-group">
+              <% for(var student of allstudentsToDisplay) {  %>
+                <li class="list-group-item">
+                  <% if (student._id == user._id){ %>
+                    <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="..." checked disabled>
+                    <input type="hidden" name="arrayOfIdStudents" value="<%- student._id %>">
+                    <%- student.studentFirstName %> <%- student.studentLastName %>
+                  <% } else { %>
+                    <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="..." checked>
+                  <%- student.studentFirstName %> <%- student.studentLastName %>
+                  <% } %>
+                  
+                </li>
+              <%}%>
+              <% for(var student of allStudents) {  %>
+                <li class="list-group-item">
+                  <% if (student._id == user._id){ %>
+                    <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="..." checked disabled>
+                    <input type="hidden" name="arrayOfIdStudents" value="<%- student._id %>">
+                    <%- student.studentFirstName %> <%- student.studentLastName %>
+                  <% } else { %>
+                    <input class="form-check-input me-1" type="checkbox" name="arrayOfIdStudents" value="<%- student._id %>" aria-label="...">
+                  <%- student.studentFirstName %> <%- student.studentLastName %>
+                  <% } %>
+                  
+                </li>
+              <%}%>
+              </ul>
+              <% } %>
+              </div> 
+          </div>
+          <div class="col my-5">
+            <label for="start">Date de début:</label>
+            <input type="date" id="start" name="date"
+                value="<%=date %>"
+                min="<%- minDate %>" max="<%- maxDate %>">
+            <label for="classroom">Numéro de la salle</label>
+            <input type="number" id="classroom" name="classroom" value=<%=currentTimeslot.classroom %>  onfocus="this.value=''">
+          </div>
+          <div class="col-3 align-self-end">
+                <label for="startingTime">Heure de début:</label>
+                <input type="time" id="startingTime" name="startingTime" min="08:00" max="19:00" value=<%=currentTimeslot.startingTime %>>
+                <button type="submit" class="btn btn-primary createButton "><i class="fas fa-plus"></i> Modifier la réservation</button>
+              </div>
+        </div>    
+      </div>
+    </form>
+  </body>
+</html>
