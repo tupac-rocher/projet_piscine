@@ -48,9 +48,9 @@ app.route('/planningTest')
     .get(function(req, res){
         res.render('planningTest')
     })
-/* app.get('*', function(req, res) {
-    res.redirect('/')
-}) */
+app.get('*', function(req, res) {
+    res.render('error')
+}) 
 app.listen(4000)
 
 
